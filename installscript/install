@@ -1,0 +1,195 @@
+#!/bin/bash
+
+# Start and Enable NetworkManager
+sudo systemctl enable NetworkManager.service --now
+
+# Get base dependencies
+sudo pacman -S --needed base-devel openssl zlib xz git
+
+# Install rustup
+curl https://sh.rustup.rs | sh
+
+# Install paru
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+cd ..
+
+# Update existing packages and sources
+paru
+
+# Install pyenv
+curl https://pyenv.run | bash
+
+# Install jenv
+git clone https://github.com/jenv/jenv.git $HOME/.jenv
+
+# Install fnm
+curl -fsSL https://fnm.vercel.app/install | bash
+
+# Install dotnet install
+curl https://dot.net/v1/dotnet-install.sh
+
+# Install Docker
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# Install preffered apps via paru
+paru -S zsh \
+	tmux \
+	nvim \
+	yadm \
+	neofetch
+
+# Set up ZSH
+chsh -s /bin/zsh
+curl -L git.io/antigen > antigen.zsh
+
+read -n1 -p "Would you like to configure your GUI? [y/N]" configure_gui
+
+if [$configure_gui = "y"] || [$configure_gui = "Y"]
+then
+	# Install GUI-only apps
+	paru -S flameshot \
+		kitty \
+		chromium \
+		firefox \
+		bitwarden \
+		discord
+
+	read -n1 -p "Would you like to install and configure VS Code? [y/N]" configure_vsc
+
+	if [$confifgure_vsc = "y"] || [$configure_vsc = "Y"]
+	then
+		paru -S code
+		code --install-extension ms-python.python
+	fi
+
+	read -n1 -p "Would you like to configure GNOME? [y/N]" configure_gnome
+
+	if [$configure_gnome = "y"] || [$configure_gnome = "Y"]
+	then
+
+		# Install GNOME prerequisites
+		paru -S gtk-engine-murrine gtk-engines
+
+		# Configure fingerprint reader
+		read -n1 -p "Would you like to enable fingerprint reader? [y/N]" fingerprint_reader
+
+		if [$fingerprint_reader = "y"] || [$fingerprint_reader = "Y"]
+		then
+			paru -S fprint
+			sudo usermod -aG input $USER
+		fi
+
+		while :
+		do
+			echo "1) Adwaita"
+			echo "2) Adwaita-Dark"
+			echo "3) Nordic"
+			echo "4) Manjarin"
+			echo "5) Dracula"
+			echo "6) Dracula-Pink-Accent"
+			read -p "What theme would you like to use?" theme_num
+
+			case $theme_num in
+				1|Adwaita)
+					theme="Adwaita"
+					break
+					;;
+				2|Awaita-Dark)
+					theme="Adwaita-Dark"
+					break
+					;;
+				3|Nordic)
+					# Download Nordic theme
+					wget -c https://github.com/EliverLara/Nordic/releases/latest/download/Nordic.tar.xz -O - | sudo tar -xJ -C /usr/share/themes
+					theme="Nordic"
+					break
+					;;
+				4|Manjarin)
+					sudo git clone https://github.com/FadeMind/manjarin-gtk-theme.git /usr/share/themes/manjarin
+					theme="manjarin"
+					break
+					;;
+				5|Dracula)
+					wget -c https://github.com/dracula/gtk/releases/latest/download/Dracula.tar -O - | sudo tar -xJ -C /usr/share/themes
+					theme="Dracula"
+					break
+					;;
+				6|Dracula-Pink-Accent)
+					wget -c https://github.com/dracula/gtk/releases/latest/download/Dracula-pink-accent.tar.xz -O - | sudo tar -xJ -C /usr/share/themes
+					theme="Dracula-pink-accent"
+					break
+					;;
+				*)
+					echo "That choice does not exist"
+					;;
+			esac
+		done
+
+		while :
+		do
+			echo "1) Adwaita"
+			echo "2) Flatery"
+			echo "3) Papirus"
+			echo "4) Tela"
+			echo "5) Dracula"
+			read -p "What icon theme would you like to use?" icon_theme_num
+
+			case $icon_theme_num in
+				1|Adwaita)
+					icon_theme="Adwaita"
+					break
+					;;
+				2|Flatery)
+					git clone https://github.com/cbrnix/Flatery.git
+					cd Flatery
+					sudo ./install.sh -g
+					cd ..
+					icon_theme="Flatery"
+					break
+					;;
+				3|Papirus)
+					wget -qO- https://git.io/papirus-icon-theme-install | sh
+					icon_theme="Papirus"
+					break
+					;;
+				4|Tela)
+					git clone https://github.com/vinceliuice/Tela-icon-theme.git
+					cd Tela-icon-theme
+					sudo ./install -a -d "/usr/share/icons"
+					cd ..
+					icon_theme="Tela"
+					break
+					;;
+				5|Dracula)
+					wget -c https://github.com/dracula/gtk/releases/latest/download/Dracula.tar -O - | sudo tar -xJ -C /usr/share/icons
+					icon_theme="Dracula"
+					break
+					;;
+				*)
+					echo "That choice does not exist"
+					;;
+			esac
+		done
+					
+
+		# Set GNOME preferences
+		gsettings set org.gnome.desktop.wm.preferences theme $theme
+		gsettings set org.gnome.desktop.interface gtk-theme $theme
+		gsettings set org.gnome.desktop.interface icon-theme $icon_theme
+		gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+		gsettings set org.gnome.desktop.peripherals.touchpad tap-and-drag-lock true
+		gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
+		gsettings set org.gnome.desktop.default-applications.terminal exec-arg ''
+		gsettings set org.gnome.desktop.default-applications.terminal exec 'kitty'
+
+		# Set GNOME shortcuts
+		dconf load /org/gnome/settings-daemon/plugins/media-keys/ < keybindings
+	fi
+fi
+
+yadm clone https://github.com/spookdot/dotfiles.git
+
+echo "Please reboot now"
