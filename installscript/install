@@ -37,6 +37,7 @@ sudo sh get-docker.sh
 
 # Install preffered apps via paru
 paru -S --noconfirm \
+	spotify-tui \
 	zsh \
 	tmux \
 	nvim \
