@@ -183,7 +183,7 @@ then
 		gsettings set org.gnome.desktop.default-applications.terminal exec 'kitty'
 
 		# Set GNOME shortcuts
-		dconf load /org/gnome/settings-daemon/plugins/media-keys/ < keybindings
+		dconf load / < keybindings
 	fi
 fi
 
