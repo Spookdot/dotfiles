@@ -11,6 +11,6 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 
 # Set theme
-antigen theme simple
+antigen theme fishy
 
 antigen apply
