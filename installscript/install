@@ -48,7 +48,7 @@ curl -L git.io/antigen > antigen.zsh
 
 read -n1 -p "Would you like to configure your GUI? [y/N]" configure_gui
 
-if [$configure_gui = "y"] || [$configure_gui = "Y"]
+if [ $configure_gui = "y" ] || [ $configure_gui = "Y" ]
 then
 	# Install GUI-only apps
 	paru -S flameshot \
@@ -60,7 +60,7 @@ then
 
 	read -n1 -p "Would you like to install and configure VS Code? [y/N]" configure_vsc
 
-	if [$confifgure_vsc = "y"] || [$configure_vsc = "Y"]
+	if [ $confifgure_vsc = "y" ] || [ $configure_vsc = "Y" ]
 	then
 		paru -S code
 		code --install-extension ms-python.python
@@ -68,7 +68,7 @@ then
 
 	read -n1 -p "Would you like to configure GNOME? [y/N]" configure_gnome
 
-	if [$configure_gnome = "y"] || [$configure_gnome = "Y"]
+	if [ $configure_gnome = "y" ] || [ $configure_gnome = "Y" ]
 	then
 
 		# Install GNOME prerequisites
@@ -77,7 +77,7 @@ then
 		# Configure fingerprint reader
 		read -n1 -p "Would you like to enable fingerprint reader? [y/N]" fingerprint_reader
 
-		if [$fingerprint_reader = "y"] || [$fingerprint_reader = "Y"]
+		if [ $fingerprint_reader = "y" ] || [ $fingerprint_reader = "Y" ]
 		then
 			paru -S fprint
 			sudo usermod -aG input $USER
