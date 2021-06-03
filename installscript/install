@@ -4,7 +4,7 @@
 sudo systemctl enable NetworkManager.service --now
 
 # Get base dependencies
-sudo pacman -S --needed base-devel openssl zlib xz git
+sudo pacman -S --needed --noconfirm base-devel openssl zlib xz git
 
 # Install rustup
 curl https://sh.rustup.rs | sh
@@ -16,7 +16,7 @@ makepkg -si
 cd ..
 
 # Update existing packages and sources
-paru
+paru --noconfirm
 
 # Install pyenv
 curl https://pyenv.run | bash
@@ -36,7 +36,8 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
 # Install preffered apps via paru
-paru -S zsh \
+paru -S --noconfirm \
+	zsh \
 	tmux \
 	nvim \
 	neofetch
@@ -46,9 +47,7 @@ chsh -s /bin/zsh
 curl -L git.io/antigen > $HOME/antigen.zsh
 
 # Configure tmux
-paru -S acpi dbus gawk net-tools coreutils
-mkdir $HOME/.tmux
-mkdir $HOME/.tmux/plugins
+paru -S --noconfirm acpi dbus gawk net-tools coreutils
 git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 
 read -n1 -p "Would you like to configure your GUI? [y/N]" configure_gui
@@ -56,7 +55,8 @@ read -n1 -p "Would you like to configure your GUI? [y/N]" configure_gui
 if [ $configure_gui = "y" ] || [ $configure_gui = "Y" ]
 then
 	# Install GUI-only apps
-	paru -S flameshot \
+	paru -S --noconfirm \
+		flameshot \
 		firefox \
 		discord
 
@@ -64,7 +64,7 @@ then
 
 	if [ $confifgure_vsc = "y" ] || [ $configure_vsc = "Y" ]
 	then
-		paru -S code
+		paru -S --noconfirm code
 		code --install-extension ms-python.python
 	fi
 
@@ -74,14 +74,14 @@ then
 	then
 
 		# Install GNOME prerequisites
-		paru -S gtk-engine-murrine gtk-engines
+		paru -S --noconfirm gtk-engine-murrine gtk-engines
 
 		# Configure fingerprint reader
 		read -n1 -p "Would you like to enable fingerprint reader? [y/N]" fingerprint_reader
 
 		if [ $fingerprint_reader = "y" ] || [ $fingerprint_reader = "Y" ]
 		then
-			paru -S fprint
+			paru -S --noconfirm fprint
 			sudo usermod -aG input $USER
 		fi
 
