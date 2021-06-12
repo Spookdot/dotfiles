@@ -25,12 +25,8 @@ paru --noconfirm
 # Install rustup
 curl https://sh.rustup.rs | sh
 
-# Install pyenv
-curl https://pyenv.run | bash
-
 # Install jenv
 git clone https://github.com/jenv/jenv.git $HOME/.jenv
-jenv enable-plugin export
 
 # Install fnm
 curl -fsSL https://fnm.vercel.app/install | bash
