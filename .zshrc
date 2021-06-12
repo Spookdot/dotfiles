@@ -9,6 +9,7 @@ antigen bundle pip
 # Other repos
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle mattberther/zsh-pyenv
 
 # Set theme
 antigen theme fishy
