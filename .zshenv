@@ -1,4 +1,5 @@
-. "$HOME/.cargo/env"
 typeset -U PATH path
-path=("$HOME/.local/bin" "$HOME/.jenv/bin" "$path[@]")
+path+=(
+  "$HOME/.local/bin"
+)
 export PATH
