@@ -21,11 +21,6 @@ gtk-engine-murrine gtk-engines
 # Update existing packages and sources
 paru --noconfirm
 
-
-## INSTALL PROGRAMMING LANGUAGES
-# Install jabba
-curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . ~/.jabba/jabba.sh
-
 # Install Docker
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
