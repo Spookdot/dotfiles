@@ -11,6 +11,7 @@ cd ..
 
 # Get base dependencies
 paru -S --needed --noconfirm \
+dotnet-sdk \
 base-devel openssl zlib xz git \
 spotify-tui spotifyd zsh tmux nvim neofetch \
 flameshot firefox discord \
@@ -24,9 +25,6 @@ paru --noconfirm
 ## INSTALL PROGRAMMING LANGUAGES
 # Install jenv
 git clone https://github.com/jenv/jenv.git $HOME/.jenv
-
-# Install dotnet install
-curl https://dot.net/v1/dotnet-install.sh
 
 # Install Docker
 curl -fsSL https://get.docker.com -o get-docker.sh
