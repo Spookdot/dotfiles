@@ -32,6 +32,10 @@ sudo sh get-docker.sh
 
 
 ## APP SETUP
+# Install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
 # Set up ZSH
 chsh -s /bin/zsh
 curl -L git.io/antigen > $HOME/antigen.zsh
