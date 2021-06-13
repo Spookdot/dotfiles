@@ -37,7 +37,6 @@ asdf plugin-add java https://github.com/halcyon/asdf-java.git
 
 # Set up ZSH
 chsh -s /bin/zsh
-curl -L git.io/antigen > $HOME/antigen.zsh
 
 # Download base16
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
