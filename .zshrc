@@ -47,7 +47,6 @@ zinit wait lucid light-mode for \
     vladmrnv/statify \
     gko/ssh-connect \
     b0o/zfzf \
-    2m/zsh-jabba \
     zpm-zsh/ls \
     psprint/zsh-navigation-tools \
     ytakahashi/igit \
@@ -58,9 +57,7 @@ zinit wait lucid light-mode for \
     Aloxaf/fzf-tab \
     zpm-zsh/material-colors \
     mango-tree/zsh-recall \
-    ChrisPenner/session-sauce \
-    mattberther/zsh-pyenv \
-    dominik-schwabe/zsh-fnm 
+    ChrisPenner/session-sauce
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
