@@ -11,20 +11,20 @@ cd ..
 
 # Get base dependencies
 paru -S --needed --noconfirm \
-dotnet-sdk \
+asdf-vm \
 base-devel openssl zlib xz git \
-spotify-tui spotifyd zsh tmux nvim neofetch \
+spotify-tui spotifyd zsh tmux nvim neofetch fzf fzy exa\
 flameshot firefox discord \
 code \
-gtk-engine-murrine gtk-engines
+gtk-engine-murrine gtk-engines 
 
 # Update existing packages and sources
 paru --noconfirm
 
 
 ## INSTALL PROGRAMMING LANGUAGES
-# Install jenv
-git clone https://github.com/jenv/jenv.git $HOME/.jenv
+# Install jabba
+curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . ~/.jabba/jabba.sh
 
 # Install Docker
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -32,13 +32,23 @@ sudo sh get-docker.sh
 
 
 ## APP SETUP
-# Install fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+# Set up ASDF
+. /opt/asdf-vm/asdf.sh
+asdf plugin-add dotnet-core https://github.com/emersonsoares/asdf-dotnet-core.git
+asdf plugin-add python
+asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
+asdf plugin-add nodejs
+asdf plugin-add java https://github.com/halcyon/asdf-java.git
 
 # Set up ZSH
 chsh -s /bin/zsh
 curl -L git.io/antigen > $HOME/antigen.zsh
+
+# Download base16
+git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+
+# Download safe-rm
+curl -L https://raw.githubusercontent.com/kaelzhang/shell-safe-rm/master/bin/rm.sh > $HOME/.local/bin/safe-rm
 
 # Configure tmux
 git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
