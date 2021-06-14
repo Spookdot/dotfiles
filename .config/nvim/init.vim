@@ -28,6 +28,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'Yggdroot/indentLine'
 
+Plug 'chriskempson/base16-vim'
+
 call plug#end()
 
 colorscheme dogrun
