@@ -70,4 +70,4 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 alias rm='$HOME/.local/bin/safe-rm'
 export SESS_PROJECT_ROOT='$HOME'
 . "/opt/asdf-vm/asdf.sh"
-alias ls=exa
+alias ls="exa ${exa_params} $@"
