@@ -66,8 +66,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
             eval "$("$BASE16_SHELL/profile_helper.sh")"
-
-alias rm='$HOME/.local/bin/safe-rm'
+            
 export SESS_PROJECT_ROOT='$HOME'
 . "/opt/asdf-vm/asdf.sh"
 alias ls="exa ${exa_params} $@"
