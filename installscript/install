@@ -13,7 +13,7 @@ cd ..
 paru -S --needed --noconfirm \
 asdf-vm \
 base-devel openssl zlib xz git \
-spotify-tui spotifyd zsh tmux nvim neofetch fzf fzy exa\
+spotify-tui spotifyd zsh tmux neovim neofetch fzf fzy exa\
 flameshot firefox discord \
 code \
 gtk-engine-murrine gtk-engines 
@@ -39,9 +39,10 @@ asdf plugin-add java https://github.com/halcyon/asdf-java.git
 chsh -s /bin/zsh
 
 # Download base16
-git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+git clone https://github.com/chriskempson/base16-shell.git $HOME/.config/base16-shell
 
 # Download safe-rm
+mkdir $HOME/.local/bin
 curl -L https://raw.githubusercontent.com/kaelzhang/shell-safe-rm/master/bin/rm.sh > $HOME/.local/bin/safe-rm
 
 # Configure tmux
