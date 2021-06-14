@@ -3,3 +3,4 @@ path+=(
   "$HOME/.local/bin"
 )
 export PATH
+export EDITOR="nvim"
