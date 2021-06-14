@@ -8,8 +8,6 @@ call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'vim-syntastic/syntastic'
 
-Plug 'davidhalter/jedi-vim'
-
 Plug 'rust-lang/rust.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
