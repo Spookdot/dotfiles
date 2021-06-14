@@ -4,10 +4,12 @@
 sudo systemctl enable NetworkManager.service --now
 
 # Install paru
+pacman -S --noconfirm rust
 git clone https://aur.archlinux.org/paru.git
 cd paru
 makepkg -si
 cd ..
+pacman -R --noconfirm rust
 
 # Get base dependencies
 paru -S --needed --noconfirm \
