@@ -49,7 +49,6 @@ zinit wait lucid light-mode for \
     b0o/zfzf \
     zpm-zsh/ls \
     psprint/zsh-navigation-tools \
-    ytakahashi/igit \
     mdumitru/fancy-ctrl-z \
     b4b4r07/enhancd \
     zpm-zsh/clipboard \
@@ -68,5 +67,5 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
             eval "$("$BASE16_SHELL/profile_helper.sh")"
             
 export SESS_PROJECT_ROOT='$HOME'
-. "/opt/asdf-vm/asdf.sh"
+. "/opt/asdf-vm/asdf.sh" &> /dev/null
 alias ls="exa ${exa_params} $@"
