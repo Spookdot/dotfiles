@@ -50,7 +50,6 @@ zinit wait lucid light-mode for \
     zpm-zsh/ls \
     psprint/zsh-navigation-tools \
     mdumitru/fancy-ctrl-z \
-    b4b4r07/enhancd \
     zpm-zsh/clipboard \
     hlissner/zsh-autopair \
     Aloxaf/fzf-tab \
