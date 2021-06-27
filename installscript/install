@@ -8,7 +8,7 @@ systemctl enable networkmanager.service
 systemctl enable gdm.service
 
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
-useradd spook --create-home --shell /usr/zsh --groups wheel,networkmanager
+useradd spook -m -s /bin/zsh -G wheel
 su spook
 
 # Install paru
