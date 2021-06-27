@@ -9,6 +9,7 @@ systemctl enable gdm.service
 
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 useradd spook -m -s /bin/zsh -G wheel
+cd /home/spook
 
 # Install paru
 git clone https://aur.archlinux.org/paru.git
