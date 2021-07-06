@@ -55,7 +55,8 @@ zinit wait lucid light-mode for \
     Aloxaf/fzf-tab \
     zpm-zsh/material-colors \
     mango-tree/zsh-recall \
-    ChrisPenner/session-sauce
+    ChrisPenner/session-sauce \
+    MichaelAquilina/zsh-autoswitch-virtualenv
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
