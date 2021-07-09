@@ -45,7 +45,6 @@ zinit wait lucid light-mode for \
         zsh-users/zsh-completions \
     nviennot/zsh-vim-plugin \
     vladmrnv/statify \
-    gko/ssh-connect \
     b0o/zfzf \
     zpm-zsh/ls \
     psprint/zsh-navigation-tools \
@@ -56,7 +55,8 @@ zinit wait lucid light-mode for \
     zpm-zsh/material-colors \
     mango-tree/zsh-recall \
     ChrisPenner/session-sauce \
-    MichaelAquilina/zsh-autoswitch-virtualenv
+    MichaelAquilina/zsh-autoswitch-virtualenv \
+    arzzen/calc.plugin.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
