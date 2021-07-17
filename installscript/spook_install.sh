@@ -23,9 +23,13 @@ git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf
 . $HOME/.asdf/asdf.sh
 asdf plugin-add dotnet-core https://github.com/emersonsoares/asdf-dotnet-core.git
 asdf plugin-add python
-asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
 asdf plugin-add nodejs
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
+
+# Set up Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo install topgrade
+cargo install cargo-update
 
 # Configure tmux
 git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
