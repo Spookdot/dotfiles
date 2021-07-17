@@ -19,3 +19,17 @@ check [this](https://github.com/ChrisPenner/session-sauce#Configuration) out for
 More info [here](https://github.com/zpm-zsh/clipboard)
 
 **asdf** is the ultimate pyenv, jabber and everything else combination
+
+# Vim Tricks
+**Tabs**
+You can open something in a new tab with `:tabe <filename>` and then switch between tabs with `:tabn` and `:tabp`
+
+**Split Screen**
+You can split your current view in Vim with `:split <filename>` and `:vsplit <filename>` and then navigate with CTRL+W and the arrow keys
+
+# Tmux Tricks
+**Tabs**
+You can open a new Tab with CTRL+B C and then switch between your tabs with CTRL+B 1-9
+
+**Split Screen**
+You can split your current view in Tmux with CTRL+B " and CTRL+B %
