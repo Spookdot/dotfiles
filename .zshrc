@@ -71,3 +71,4 @@ export SESS_PROJECT_ROOT='$HOME'
 . $HOME/.asdf/asdf.sh &> /dev/null
 fpath=(${ASDF_DIR}/completions $fpath)
 alias ls="exa ${exa_params} $@"
+alias yay="paru"
