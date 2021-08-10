@@ -25,6 +25,8 @@ asdf plugin-add dotnet-core https://github.com/emersonsoares/asdf-dotnet-core.gi
 asdf plugin-add python
 asdf plugin-add nodejs
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
+asdf plugin-add gradle
+asdf plugin-add kotlin
 
 # Set up Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
