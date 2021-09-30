@@ -12,8 +12,6 @@ Plug 'rust-lang/rust.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'preservim/nerdtree'
-
 Plug 'ryanoasis/vim-devicons'
 
 Plug 'wadackel/vim-dogrun'
@@ -31,6 +29,10 @@ Plug 'chriskempson/base16-vim'
 Plug 'puremourning/vimspector'
 
 Plug 'mattn/emmet-vim'
+
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+
+Plug 'flazz/vim-colorschemes'
 
 call plug#end()
 
