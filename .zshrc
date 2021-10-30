@@ -33,8 +33,7 @@ zinit wait lucid for \
 
 zinit wait lucid as"completion" for \
     OMZP::docker/_docker \
-    OMZP::rust/_rust \
-    OMZP::rustup/_rustup
+    OMZP::rust/_rust
 
 zinit wait lucid light-mode for \
     atinit'zicompinit; zicdreplay' \
@@ -43,20 +42,14 @@ zinit wait lucid light-mode for \
         zsh-users/zsh-autosuggestions \
     blockf atpull'zinit creinstall -q .' \
         zsh-users/zsh-completions \
-    nviennot/zsh-vim-plugin \
-    vladmrnv/statify \
     b0o/zfzf \
     zpm-zsh/ls \
     psprint/zsh-navigation-tools \
-    mdumitru/fancy-ctrl-z \
     zpm-zsh/clipboard \
     hlissner/zsh-autopair \
     Aloxaf/fzf-tab \
     zpm-zsh/material-colors \
-    mango-tree/zsh-recall \
-    ChrisPenner/session-sauce \
-    MichaelAquilina/zsh-autoswitch-virtualenv \
-    arzzen/calc.plugin.zsh
+    MichaelAquilina/zsh-autoswitch-virtualenv
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
