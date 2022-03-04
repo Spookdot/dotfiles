@@ -1,7 +1,7 @@
 #!/bin/bash
 pacman -S --noconfirm \
 gnome networkmanager gnome-tweaks pipewire flameshot firefox code \
-sudo zsh tmux neovim neofetch fzf exa docker \
+sudo zsh tmux neovim neofetch fzf exa docker github-cli \
 openssl zlib xz curl base-devel git rust
 
 systemctl enable networkmanager.service
