@@ -4,3 +4,5 @@ path+=(
 )
 export PATH
 export EDITOR="nvim"
+export ZSH="/root/.local/share/zinit/"
+export ZSH_PYENV_QUIET=true
