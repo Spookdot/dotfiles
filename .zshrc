@@ -26,14 +26,38 @@ zinit snippet OMZL::spectrum.zsh
 zinit snippet OMZT::alanpeabody
 
 # Default repo
+# Single file plugins
 zinit wait lucid for \
     OMZP::pip \
     OMZP::web-search \
-    OMZP::colored-man-pages
+    OMZP::colored-man-pages \
+    OMZP::dotnet \
+    OMZP::dnf \
+    OMZP::docker-compose \
+    OMZP::dotenv \
+    OMZP::fnm \
+    OMZP::gh \
+    OMZP::lol \
+    OMZP::npm \
+    OMZP::pipenv \
+    OMZP::pyenv \
+    OMZP::python \
+    OMZP::rsync \
+    OMZP::rust \
+    OMZP::vscode \
+    OMZP::yarn \
+    OMZP::extract
 
+# Completion for single
 zinit wait lucid as"completion" for \
     OMZP::docker/_docker \
-    OMZP::rust/_rust
+    OMZP::pip/_pip \
+    OMZP::docker-compose/_docker-compose \
+    OMZP::rust/_rustc
+
+zinit wait svn for \
+    OMZP::tmux \
+    OMZP::aliases
 
 zinit wait lucid light-mode for \
     atinit'zicompinit; zicdreplay' \
@@ -44,7 +68,6 @@ zinit wait lucid light-mode for \
         zsh-users/zsh-completions \
     b0o/zfzf \
     zpm-zsh/ls \
-    psprint/zsh-navigation-tools \
     zpm-zsh/clipboard \
     hlissner/zsh-autopair \
     Aloxaf/fzf-tab \
@@ -58,7 +81,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
             eval "$("$BASE16_SHELL/profile_helper.sh")"
-            
+
 export SESS_PROJECT_ROOT='$HOME'
 . "/opt/asdf-vm/asdf.sh" &> /dev/null
 . $HOME/.asdf/asdf.sh &> /dev/null
