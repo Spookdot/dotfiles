@@ -34,6 +34,8 @@ Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 
 Plug 'flazz/vim-colorschemes'
 
+Plug 'ziglang/zig.vim'
+
 call plug#end()
 
 colorscheme dogrun
@@ -52,4 +54,5 @@ let g:syntastic_check_on_wq = 0
 
 let g:coc_global_extensions = ['coc-pyright', 'coc-rust-analyzer', 'coc-css', 'coc-html-css-support', 'coc-html', 'coc-htmldjango', 'coc-sh', 'coc-prettier', 'coc-eslint', 'coc-marketplace', 'coc-emmet']
 
+set number relativenumber
 set list lcs=tab:\|\ 
