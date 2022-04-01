@@ -1,9 +1,9 @@
 set encoding=UTF-8
 set expandtab
 set number
-set shiftwidth=4
+set shiftwidth=2
 set smarttab
-set tabstop=4
+set tabstop=2
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'vim-syntastic/syntastic'
@@ -14,9 +14,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'ryanoasis/vim-devicons'
 
-Plug 'wadackel/vim-dogrun'
-
-Plug 'airblade/vim-gitgutter'
+Plug 'adelarsq/vim-emoji-icon-theme'
 
 Plug 'vim-airline/vim-airline'
 
@@ -24,22 +22,25 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'Yggdroot/indentLine'
 
-Plug 'chriskempson/base16-vim'
-
 Plug 'puremourning/vimspector'
 
 Plug 'mattn/emmet-vim'
 
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 
-Plug 'flazz/vim-colorschemes'
+Plug 'airblade/vim-gitgutter'
 
-Plug 'ziglang/zig.vim'
+Plug 'joshdick/onedark.vim'
+
+Plug 'sheerun/vim-polyglot'
+
+Plug 'neovim/nvim-lspconfig'
 
 call plug#end()
 
-colorscheme dogrun
-let g:airline_theme='fairyfloss'
+syntax on
+colorscheme onedark
+let g:airline_theme='onedark'
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -55,4 +56,6 @@ let g:syntastic_check_on_wq = 0
 let g:coc_global_extensions = ['coc-pyright', 'coc-rust-analyzer', 'coc-css', 'coc-html-css-support', 'coc-html', 'coc-htmldjango', 'coc-sh', 'coc-prettier', 'coc-eslint', 'coc-marketplace', 'coc-emmet']
 
 set number relativenumber
+set termguicolors
 set list lcs=tab:\|\ 
+
