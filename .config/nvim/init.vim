@@ -61,6 +61,7 @@ let g:syntastic_check_on_wq = 0
 
 let g:coc_global_extensions = ['coc-pyright', 'coc-css', 'coc-html-css-support', 'coc-html', 'coc-prettier', 'coc-marketplace']
 
+
 :lua << EOF
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -79,18 +80,6 @@ end
 
 EOF
 
-" Set completeopt to have a better completion experience
-" set completeopt=menuone,noinsert,noselect
-
-" Enable completions as you type
-" let g:completion_enable_auto_popup = 1
-"local pid = vim.fn.getpid()
-"local omnisharp_bin = '/home/spook/.cache/omnisharp-vim/omnisharp-roslyn/run'
-"
-"lspconfig.omnisharp.setup(require('coq').lsp_ensure_capabilities({
-"  on_attach = on_attach,
-"  cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) };
-"  }))
 
 set number relativenumber
 set termguicolors
