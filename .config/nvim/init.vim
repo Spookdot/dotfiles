@@ -36,6 +36,12 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'neovim/nvim-lspconfig'
 
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
+
+Plug 'OmniSharp/omnisharp-vim'
+
 call plug#end()
 
 syntax on
@@ -53,9 +59,39 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:coc_global_extensions = ['coc-pyright', 'coc-rust-analyzer', 'coc-css', 'coc-html-css-support', 'coc-html', 'coc-htmldjango', 'coc-sh', 'coc-prettier', 'coc-eslint', 'coc-marketplace', 'coc-emmet']
+let g:coc_global_extensions = ['coc-pyright', 'coc-css', 'coc-html-css-support', 'coc-html', 'coc-prettier', 'coc-marketplace']
+
+:lua << EOF
+local on_attach = function(client, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+end
+
+local lspconfig = require("lspconfig")
+
+vim.g.coq_settings = { auto_start = 'shut-up' }
+
+local servers = { 'zls', 'tsserver', 'rust_analyzer', 'emmet_ls', "dockerls", "pyright" }
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup(require('coq').lsp_ensure_capabilities({
+    on_attach = on_attach,
+  }))
+end
+
+EOF
+
+" Set completeopt to have a better completion experience
+" set completeopt=menuone,noinsert,noselect
+
+" Enable completions as you type
+" let g:completion_enable_auto_popup = 1
+"local pid = vim.fn.getpid()
+"local omnisharp_bin = '/home/spook/.cache/omnisharp-vim/omnisharp-roslyn/run'
+"
+"lspconfig.omnisharp.setup(require('coq').lsp_ensure_capabilities({
+"  on_attach = on_attach,
+"  cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) };
+"  }))
 
 set number relativenumber
 set termguicolors
 set list lcs=tab:\|\ 
-
