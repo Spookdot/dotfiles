@@ -81,6 +81,7 @@ end
 EOF
 
 
+set completeopt=longest,menuone,noinsert
 set number relativenumber
 set termguicolors
 set list lcs=tab:\|\ 
