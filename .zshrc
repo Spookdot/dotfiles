@@ -43,7 +43,6 @@ zinit wait lucid for \
     OMZP::pyenv \
     OMZP::python \
     OMZP::rsync \
-    OMZP::rust \
     OMZP::vscode \
     OMZP::yarn \
     OMZP::extract
@@ -55,7 +54,7 @@ zinit wait lucid as"completion" for \
     OMZP::docker-compose/_docker-compose \
     OMZP::rust/_rustc
 
-zinit wait svn for \
+zinit wait git for \
     OMZP::tmux \
     OMZP::aliases
 
