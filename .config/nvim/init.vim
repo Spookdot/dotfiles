@@ -34,12 +34,6 @@ Plug 'joshdick/onedark.vim'
 
 Plug 'sheerun/vim-polyglot'
 
-Plug 'neovim/nvim-lspconfig'
-
-Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
-Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
-
 Plug 'OmniSharp/omnisharp-vim'
 
 call plug#end()
@@ -60,25 +54,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:coc_global_extensions = ['coc-pyright', 'coc-css', 'coc-html-css-support', 'coc-html', 'coc-prettier', 'coc-marketplace']
-
-
-:lua << EOF
-local on_attach = function(client, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-end
-
-local lspconfig = require("lspconfig")
-
-vim.g.coq_settings = { auto_start = 'shut-up' }
-
-local servers = { 'zls', 'tsserver', 'rust_analyzer', 'emmet_ls', "dockerls", "pyright" }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup(require('coq').lsp_ensure_capabilities({
-    on_attach = on_attach,
-  }))
-end
-
-EOF
 
 
 set completeopt=longest,menuone,noinsert
