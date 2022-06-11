@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if ! command -v rustc &> /dev/null; then
+  export CARGO_TARGET_DIR=$HOME/.cargo/cache
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile default
+  cargo install cargo-generate
+  cargo install cargo-script
+  cargo install cargo-update
+  cargo install cargo-watch
+  cargo install cargo-edit
+  cargo install pueue
+  cargo install ouch
+fi
+

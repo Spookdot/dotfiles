@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if ! command -v pyenv &> /dev/null; then
+  curl https://pyenv.run | bash
+  eval "$(pyenv virtualenv-init -)"
+fi
+
+if ! command -v python &> /dev/null; then
+  PY_VER="$(pyenv install --list | grep -v -e "dev" -e "b" | grep '^  3' | tail -1 | xargs)"
+  pyenv install $PY_VER
+fi
+
+if ! command -v pip &> /dev/null; then
+  sudo python -m ensurepip
+fi
+
+sudo python -m pip install --upgrade pip
+
+if ! command -v pipx &> /dev/null; then
+  python -m pip install --user pipx
+  python -m pipx ensurepath
+else
+  python -m pip install --user -U pipx
+fi
+
+if ! command -v pipenv &> /dev/null; then
+  pipx install pipenv
+fi
