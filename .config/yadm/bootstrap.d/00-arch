@@ -5,17 +5,18 @@ if ! command -v pacman &> /dev/null; then
 fi
 
 if ! grep -q chaotic-aur "/etc/pacman.conf"; then
-  sudo pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
-  sudo pacman-key --lsign-key FBA220DFC880C036
-  sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+  sudo pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com --noconfirm --needed
+  sudo pacman-key --lsign-key FBA220DFC880C036 --noconfirm --needed
+  sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm --needed
 
-  sudo echo '[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist' >> /etc/pacman.conf
+  echo '[chaotic-aur]' | sudo tee -a /etc/pacman.conf > /dev/null
+  echo 'Include = /etc/pacman.d/chaotic-mirrorlist' | sudo tee -a /etc/pacman.conf > /dev/null
 fi
 
 if ! command -v paru &> /dev/null; then
-  sudo pacman -S --noconfirm paru
+  sudo pacman -Sy --noconfirm --needed paru
 fi
 
-paru -S --noconfirm \
+paru -S --noconfirm --needed \
   base-devel wget curl git zsh tmux neovim fzf exa dust bat \
   spotify-tui spotifyd docker github-cli rust-analyzer

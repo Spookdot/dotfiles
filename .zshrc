@@ -84,6 +84,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 export SESS_PROJECT_ROOT='$HOME'
 . "/opt/asdf-vm/asdf.sh" &> /dev/null
 . $HOME/.asdf/asdf.sh &> /dev/null
+. $HOME/.nvm/nvm.sh &> /dev/null
 fpath=(${ASDF_DIR}/completions $fpath)
 alias ls="exa ${exa_params} $@"
 alias yay="paru"
