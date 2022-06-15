@@ -7,20 +7,13 @@ if [ ! command -v pyenv &> /dev/null ] && [ ! command -v $HOME/.pyenv/bin/pyenv 
   command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
   echo "Pyenv installed"
-else
-  echo "Pyenv already installed"
-fi
 
-if ! command -v python &> /dev/null; then
   echo "Installing Python with Pyenv"
   PY_VER="$(pyenv install --list | grep -v -e "dev" -e "b" | grep '^  3' | tail -1 | xargs)"
   pyenv install $PY_VER
+  pyenv global $PY_VER
   echo "Installed Python with Pyenv"
-else
-  echo "Python already installed"
-fi
 
-if ! command -v pip &> /dev/null; then
   echo "Installing pip"
   sudo python -m ensurepip
   sudo python -m pip install wheel
