@@ -40,6 +40,7 @@ require "paq" {
   "nvim-lua/popup.nvim"; -- Popup
   "rcarriga/nvim-notify";
   "lewis6991/gitsigns.nvim"; -- Gitsigns
+  "williamboman/nvim-lsp-installer";
 }
 
 require('plugins/alpha')
