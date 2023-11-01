@@ -88,3 +88,8 @@ export SESS_PROJECT_ROOT='$HOME'
 fpath=(${ASDF_DIR}/completions $fpath)
 alias ls="exa ${exa_params} $@"
 alias yay="paru"
+# Navigate Folders via fff and automatically cd into them
+f() {
+    fff "$@"
+    cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
+}
