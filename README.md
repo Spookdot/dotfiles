@@ -10,6 +10,9 @@ check [this](https://github.com/ChrisPenner/session-sauce#Configuration) out for
 **clip** and two other commands to interact with the system clipboard 
 More info [here](https://github.com/zpm-zsh/clipboard)
 
+**f** is a special version of `fff` which if fff is installed allows for navigating folders easily
+More info about fff [here](https://github.com/dylanaraps/fff)
+
 # Vim Tricks
 **Tabs**
 You can open something in a new tab with `:tabe <filename>` and then switch between tabs with `:tabn` and `:tabp`
