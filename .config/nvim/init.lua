@@ -1,48 +1,65 @@
 require('plugins/bootstrapping')
-require 'paq' {
-    "savq/paq-nvim", -- Let paq manage itself
+
+vim.opt.termguicolors = true
+
+require("lazy").setup({
     "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig", -- Language Servers
+    "neovim/nvim-lspconfig",                                  -- Language Servers
     "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path",
-    "hrsh7th/cmp-cmdline", "hrsh7th/nvim-cmp", -- Completion engine
-    "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip", -- Snippets
-    "jayp0521/mason-nvim-dap.nvim", "mfussenegger/nvim-dap", -- Debugger
+    "hrsh7th/cmp-cmdline", "hrsh7th/nvim-cmp",                -- Completion engine
+    "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip",           -- Snippets
+    "jayp0521/mason-nvim-dap.nvim", "mfussenegger/nvim-dap",  -- Debugger
     "nvim-lua/plenary.nvim", "jose-elias-alvarez/null-ls.nvim",
-    "jayp0521/mason-null-ls.nvim", -- Linter and Formatter
-    "j-hui/fidget.nvim", -- Shows LSP progress
-    { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }, -- Syntax Highlighting
-    "nvim-tree/nvim-web-devicons", "nvim-tree/nvim-tree.lua", -- File Explorer
-    "onsails/lspkind.nvim", -- Completion Icons
-    "sunjon/Shade.nvim", -- Highlight active window
-    "EdenEast/nightfox.nvim", -- Theme
-    "noib3/nvim-cokeline", -- tabline
-    "kyazdani42/nvim-web-devicons", -- Icons
-    "goolord/alpha-nvim", -- Startup Dashboard
-    "rcarriga/nvim-notify", -- Cool way to show notifications
-    "rcarriga/nvim-dap-ui", -- Debugger UI
-    "stevearc/dressing.nvim", -- Improved UI
+    "jayp0521/mason-null-ls.nvim",                            -- Linter and Formatter
+    { "j-hui/fidget.nvim",               branch = "legacy" }, -- Shows LSP progress
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" }, -- Syntax Highlighting
+    "kyazdani42/nvim-web-devicons",                           -- Icons
+    "MunifTanjim/nui.nvim", "nvim-neo-tree/neo-tree.nvim",    -- File Explorer
+    "onsails/lspkind.nvim",                                   -- Completion Icons
+    "EdenEast/nightfox.nvim",                                 -- Theme
+    {
+        "akinsho/bufferline.nvim",
+        dependencies = { "kyazdani42/nvim-web-devicons" },
+        version = "*"
+    },                              -- tabline
+    "goolord/alpha-nvim",           -- Startup Dashboard
+    "rcarriga/nvim-notify",         -- Cool way to show notifications
+    "rcarriga/nvim-dap-ui",         -- Debugger UI
+    "stevearc/dressing.nvim",       -- Improved UI
     "NTBBloodbath/galaxyline.nvim", -- Statusline
-    "nvim-telescope/telescope.nvim", -- Fancy UI thing
+    {
+        "nvim-telescope/telescope.nvim",
+        tag = '0.1.4',
+        dependencies = { 'nvim-lua/plenary.nvim' }
+    }, "nvim-telescope/telescope-ui-select.nvim",          -- Fancy UI thing
     "kevinhwang91/promise-async", "kevinhwang91/nvim-ufo", -- fancy folding
-    "Saecki/crates.nvim", -- Rust Crates Completion
-    "lewis6991/gitsigns.nvim", -- Git Stuff
-    "phaazon/hop.nvim", -- Quick Navigation
-    "numToStr/Comment.nvim", -- Comment Plugin
-    "nacro90/numb.nvim", -- Peek lines
-    "lukas-reineke/indent-blankline.nvim", -- Indent lines
-    "gelguy/wilder.nvim", -- Fuzzy complete
-    "Shatur/neovim-session-manager", -- Session Manager
-    "rafamadriz/friendly-snippets", -- Some Snippets
-    "folke/trouble.nvim", -- List all Diagnostics
-    "folke/which-key.nvim"
-}
+    "Saecki/crates.nvim",                                  -- Rust Crates Completion
+    "lewis6991/gitsigns.nvim",                             -- Git Stuff
+    "phaazon/hop.nvim",                                    -- Quick Navigation
+    "numToStr/Comment.nvim",                               -- Comment Plugin
+    "nacro90/numb.nvim",                                   -- Peek lines
+    "lukas-reineke/indent-blankline.nvim",                 -- Indent lines
+    "gelguy/wilder.nvim",                                  -- Fuzzy complete
+    "Shatur/neovim-session-manager",                       -- Session Manager
+    "rafamadriz/friendly-snippets",                        -- Some Snippets
+    "folke/trouble.nvim",                                  -- List all Diagnostics
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = {
+            "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop"
+        },
+        build = "cd app && yarn install || npm install",
+        init = function() vim.g.mkdp_filetypes = { "markdown" } end,
+        ft = { "markdown" }
+    }, "folke/which-key.nvim"
+})
 
 require("luasnip.loaders.from_vscode").lazy_load()
 require("which-key").setup()
 require("telescope").setup()
+require("telescope").load_extension("ui-select")
 require("fidget").setup()
-require("nvim-tree").setup()
-require("shade").setup()
+require("neo-tree").setup()
 require("dapui").setup()
 require("crates").setup()
 require("gitsigns").setup()
@@ -50,10 +67,11 @@ require("hop").setup()
 require("Comment").setup()
 require("numb").setup()
 require("dressing").setup()
-require("indent_blankline").setup()
+require("ibl").setup()
+require("bufferline").setup()
 require("galaxyline.themes.eviline")
 
-require('plugins/nvim-tree')
+require('plugins/nvim-treesitter')
 require('plugins/nvim-lspconfig')
 require('plugins/ufo')
 require('plugins/nvim-dap')
@@ -75,10 +93,6 @@ wilder.set_option('renderer',
             right = { ' ', wilder.popupmenu_scrollbar() }
         })))
 
--- nvim-cokeline
-vim.opt.termguicolors = true
-require('cokeline').setup()
-
 -- telescope
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', 'ff', builtin.find_files, {})
@@ -88,7 +102,7 @@ vim.keymap.set('n', 'fh', builtin.help_tags, {})
 
 -- ufo folding
 vim.o.foldcolumn = '3' -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
@@ -100,12 +114,6 @@ require("session_manager").setup({
     autoload_mode = require('session_manager.config').AutoloadMode.Disabled
 })
 local config_group = vim.api.nvim_create_augroup('MyConfigGroup', {}) -- A global group for all your config autocommands
-
-vim.api.nvim_create_autocmd({ 'User' }, {
-    pattern = "SessionLoadPost",
-    group = config_group,
-    callback = function() require('nvim-tree').toggle(false, true) end
-})
 
 -- Alpha
 local dashboard = require 'alpha.themes.dashboard'

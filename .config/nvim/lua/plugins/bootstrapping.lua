@@ -1,32 +1,9 @@
--- In ~/.config/nvim/lua/bootstrap.lua
-local PKGS = {
-    "savq/paq-nvim"
-    -- List your packages here!
-}
-
-local function clone_paq()
-    local path = vim.fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
-    if vim.fn.empty(vim.fn.glob(path)) > 0 then
-        vim.fn.system {
-            'git', 'clone', '--depth=1', 'https://github.com/savq/paq-nvim.git',
-            path
-        }
-    end
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git", "clone", "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git", "--branch=stable", -- latest stable release
+        lazypath
+    })
 end
-
-local function bootstrap_paq()
-    clone_paq()
-
-    -- Load Paq
-    vim.cmd('packadd paq-nvim')
-    local paq = require('paq')
-
-    -- Exit nvim after installing plugins
-    vim.cmd('autocmd User PaqDoneInstall quit')
-
-    -- Read and install packages
-    paq(PKGS)
-    paq.install()
-end
-
-return {bootstrap_paq = bootstrap_paq}
+vim.opt.rtp:prepend(lazypath)
