@@ -1,141 +1,108 @@
--- LSP settings
-local lspconfig = require 'lspconfig'
+-- LSP Settings
+local lspconfig = require("lspconfig")
 local on_attach = function(_, bufnr)
-  local opts = { noremap = true, silent = true }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ds', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
-  vim.cmd [[
-	  augroup fmt
-		  autocmd!
-		  autocmd BufWritePre * undojoin | Neoformat
-  	augroup END
-  ]]
+    local opts = {noremap = true, silent = true}
+    --    vim.cmd([[
+    --        augroup fmt
+    --	    autocmd!
+    --	    autocmd BufWritePre * undojoin | Neoformat
+    --	augroup END
+    --    ]])
 end
 
 -- nvim-cmp supports additional completion capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
 
-local servers = {
-  tsserver = {},
-  denols = {
-	  on_attach = on_attach,
-	  init_options = {
-		  lint = true,
-	  },
-  },
-  bashls = {},
-  cssls = {},
-  dockerls = {},
-  jsonls = {},
-  solargraph = {},
-  rust_analyzer = {
-	  cmd = {'rust-analyzer'},
-	  autostart = true,
-	  capabilities = capabilities,
-	  on_attach = on_attach,
-  },
-  pyright = {},
-  clangd = {},
-  sumneko_lua = {
-    cmd = {'lua-language-server'};
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = 'LuaJIT',
-          -- Setup your lua path
-          path = vim.split(package.path, ';'),
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = {'vim'},
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-          },
-        },
-      },
+local cmp = require("cmp")
+cmp.setup({
+    snippet = {
+        expand = function(args) require("luasnip").lsp_expand(args.body) end
     },
-  },
-  html = {},
-}
+    window = {},
+    mapping = cmp.mapping.preset.insert({
+        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.abort(),
+        ["<CR>"] = cmp.mapping.confirm({select = true}) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+        {name = "nvim_lsp"}, {name = "luasnip"}, {name = "buffer"},
+        {name = "crates"}
+    }),
+    formatting = {
+        format = require("lspkind").cmp_format({
+            mode = 'symbol_text', -- show only symbol annotations
+            maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
 
-for server, config in pairs(servers) do
-  config.autostart = true
-  config.on_attach = on_attach
-  config.capabilities = capabilities
-  lspconfig[server].setup(config)
-end
+            -- The function below will be called before any actual modifications from lspkind
+            -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+            before = function(entry, vim_item) return vim_item end
+        })
+    }
+})
 
--- rust-tools
-require('rust-tools').setup{
-  server = {
-    autostart = true,
-    on_attach = on_attach,
-    capabilities = capabilities
-  }
-}
-
--- luasnip setup
-local luasnip = require 'luasnip'
-
--- nvim-cmp setup
-local cmp = require 'cmp'
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+require("mason").setup()
+require("mason-lspconfig").setup()
+require("mason-lspconfig").setup_handlers({
+    function(server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup({
+            autostart = true,
+            on_attach = on_attach,
+            capabilities = capabilities
+        })
     end,
-  },
-  mapping = {
-    ['<UP>'] = cmp.mapping.select_prev_item(),
-    ['<DOWN>'] = cmp.mapping.select_next_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Enter>'] = cmp.mapping.complete(),
-    ['<ESC>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+    ["sumneko_lua"] = function()
+        lspconfig.sumneko_lua.setup({
+            cmd = {"lua-language-server"},
+            settings = {
+                Lua = {
+                    runtime = {
+                        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                        version = "LuaJIT",
+                        -- Setup your lua path
+                        path = vim.split(package.path, ";")
+                    },
+                    diagnostics = {
+                        -- Get the language server to recognize the `vim` global
+                        globals = {"vim"}
+                    },
+                    workspace = {
+                        -- Make the server aware of Neovim runtime files
+                        library = {
+                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+                        }
+                    }
+                }
+            }
+        })
+    end
+})
+
+local null_ls = require("null-ls")
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.lua_format,
+        null_ls.builtins.completion.luasnip, null_ls.builtins.formatting.blue,
+        null_ls.builtins.formatting.clang_format
     },
-    ['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end,
-    ['<S-Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end,
-  },
-  sources = cmp.config.sources({
-  	{ name = 'nvim_lsp' },
-      	{ name = 'luasnip' },
-      	{ name = 'path'},
-	{ name = 'buffer'},
-    	})
-}
+    on_attach = function(client, bufnr)
+        if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function()
+                    -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+                    vim.lsp.buf.format({bufnr = bufnr})
+                end
+            })
+        end
+    end
+})
