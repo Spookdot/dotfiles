@@ -18,5 +18,5 @@ if ! command -v paru &> /dev/null; then
 fi
 
 paru -S --noconfirm --needed \
-  base-devel wget curl git zsh tmux neovim fzf exa dust bat playerctl pamixer \
-  ncspot spotifyd docker github-cli rust-analyzer
+  base-devel wget curl git zsh tmux fzf playerctl pamixer \
+  docker github-cli rustup

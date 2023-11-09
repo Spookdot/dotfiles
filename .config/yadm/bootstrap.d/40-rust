@@ -1,9 +1,23 @@
 #!/bin/bash
 
-if ! command -v rustc &> /dev/null; then
-  export CARGO_TARGET_DIR=$HOME/.cargo/cache
+if ! command -v rustup &> /dev/null; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile default
-  curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
-  cargo binstall -y cargo-generate cargo-update cargo-watch cargo-edit cargo-tarpaulin watchexec-cli cargo-outdated 
 fi
 
+if ! command -v rustc &> /dev/null; then
+  rustup update
+fi
+
+if ! command -v rust-analyzer &> /dev/null; then
+  rustup component add rust-analyzer
+  rustup component add rust-src
+fi
+
+export CARGO_TARGET_DIR=$HOME/.cargo/cache
+curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+cargo binstall -y \
+  cargo-generate cargo-update cargo-watch cargo-edit \
+  cargo-tarpaulin watchexec-cli cargo-outdated \
+  eza dust bat miniserve pipr tealdeer topgrade \
+  xcp zoxide cargo-wipe dua-cli macchina bob \
+  starship cargo-nextest ncspot
