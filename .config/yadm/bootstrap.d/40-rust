@@ -3,12 +3,7 @@
 if ! command -v rustc &> /dev/null; then
   export CARGO_TARGET_DIR=$HOME/.cargo/cache
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile default
-  cargo install cargo-generate
-  cargo install cargo-script
-  cargo install cargo-update
-  cargo install cargo-watch
-  cargo install cargo-edit
-  cargo install pueue
-  cargo install ouch
+  curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+  cargo binstall -y cargo-generate cargo-update cargo-watch cargo-edit cargo-tarpaulin watchexec-cli cargo-outdated 
 fi
 
