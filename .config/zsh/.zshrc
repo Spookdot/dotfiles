@@ -55,11 +55,11 @@ done
 
 # Additions made by other programs
 # pnpm
-export PNPM_HOME="/home/spook/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-[ -f "/home/spook/.ghcup/env" ] && source "/home/spook/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 fpath+=~/.zfunc

@@ -24,7 +24,7 @@ if ! command -v $HOME/.local/bin/pipx &> /dev/null; then
   echo "Installing Pipx"
   python -m pip install --user pipx
   python -m pipx ensurepath
-  export PATH="$PATH:/home/spook/.local/bin"
+  export PATH="$PATH:$HOME/.local/bin"
   echo "Installed Pipx"
 else
   echo "Pipx already installed"
