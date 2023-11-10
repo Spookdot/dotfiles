@@ -30,6 +30,14 @@ else
   echo "Pipx already installed"
 fi
 
+if ! command -v $HOME/.local/bin/virtualenv &> /dev/null; then
+  echo "Installing virtualenv"
+  $HOME/.local/bin/pipx install virtualenv
+  echo "Installed virtualenv"
+else
+  echo "Virtualenv already installed"
+fi
+
 if ! command -v $HOME/.local/bin/pipenv &> /dev/null; then
   echo "Installing pipenv"
   $HOME/.local/bin/pipx install pipenv
