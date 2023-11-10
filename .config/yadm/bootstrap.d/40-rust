@@ -20,4 +20,4 @@ cargo binstall -y \
   cargo-tarpaulin watchexec-cli cargo-outdated \
   eza dust bat miniserve pipr tealdeer topgrade \
   xcp zoxide cargo-wipe dua-cli macchina bob \
-  starship cargo-nextest ncspot
+  starship cargo-nextest ncspot xh
