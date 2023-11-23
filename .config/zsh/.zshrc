@@ -7,6 +7,7 @@ if [[ ! -f ${ZDOTDIR:-~}/.antidote/antidote.zsh ]]; then
         print "The clone has failed."
 fi
 ### Finished bootstrapping antidote
+fpath+=~/.zfunc
 autoload -Uz compinit
 compinit
 
@@ -31,7 +32,8 @@ if (( $+commands[bat] )); then
     alias rcat="cat"
 fi
 
-if (( $+commands[z] )); then
+if (( $+commands[zoxide] )); then
+    eval "$(zoxide init zsh)"
     alias cd="z"
 fi
 
@@ -39,6 +41,9 @@ if (( $+commands[npm] )); then
     eval "$(npm completion)"
 fi
 
+if (( $+commands[bw] )); then
+    eval "$(bw completion --shell zsh); compdef _bw bw;"
+fi
 
 # Add f as an easy in-terminal explorer
 f() {
