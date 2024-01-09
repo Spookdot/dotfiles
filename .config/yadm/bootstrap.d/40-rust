@@ -18,6 +18,6 @@ curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-
 cargo binstall -y \
   cargo-generate cargo-update cargo-watch cargo-edit \
   cargo-tarpaulin watchexec-cli cargo-outdated \
-  eza dust bat miniserve pipr tealdeer topgrade \
+  eza du-dust bat miniserve pipr tealdeer topgrade \
   xcp zoxide cargo-wipe dua-cli macchina bob \
   starship cargo-nextest ncspot xh
