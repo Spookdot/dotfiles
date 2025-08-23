@@ -68,30 +68,35 @@ require("mason").setup() -- {ui = {width = 200}})
 require("mason-lspconfig").setup({
     ensure_installed = { "lua_ls", "jsonls" },
 })
-require("mason-lspconfig").setup_handlers({
-    function(server_name) -- default handler (optional)
-        lspconfig[server_name].setup({
-            autostart = true,
-            on_attach = on_attach,
-            capabilities = capabilities,
-        })
-    end,
-    ["rust_analyzer"] = function() end,
-    ["pylsp"] = function()
-        lspconfig.pylsp.setup({
-            settings = {
-                pylsp = {
-                    plugins = {
-                        pycodestyle = {
-                            ignore = { "E303", "W503", "W504" },
-                            maxLineLength = 200,
-                        },
-                    },
-                },
-            },
-        })
-    end,
+vim.lsp.config("rust_analyzer", {
+    settings = {
+        ["rust-analyzer"] = {}
+    }
 })
+-- require("mason-lspconfig").setup_handlers({
+--     function(server_name) -- default handler (optional)
+--         lspconfig[server_name].setup({
+--             autostart = true,
+--             on_attach = on_attach,
+--             capabilities = capabilities,
+--         })
+--     end,
+--     ["rust_analyzer"] = function() end,
+--     ["pylsp"] = function()
+--         lspconfig.pylsp.setup({
+--             settings = {
+--                 pylsp = {
+--                     plugins = {
+--                         pycodestyle = {
+--                             ignore = { "E303", "W503", "W504" },
+--                             maxLineLength = 200,
+--                         },
+--                     },
+--                 },
+--             },
+--         })
+--     end,
+-- })
 
 -- https://github.com/jay-babu/mason-null-ls.nvim
 -- For more options check https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md

@@ -38,13 +38,12 @@ require("lazy").setup({
             "mrcjkb/neotest-haskell",
         },
     }, -- Test system
-    "nvimtools/none-ls.nvim",
     {
         "jayp0521/mason-null-ls.nvim",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim",
-            "jose-elias-alvarez/null-ls.nvim",
+            "nvimtools/none-ls.nvim",
         },
     }, -- Linter and Formatter
     { "ThePrimeagen/refactoring.nvim", opts = {} }, -- Code Actions
