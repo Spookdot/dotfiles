@@ -23,7 +23,6 @@ local cmp = require("cmp")
 cmp.setup({
     enable = true,
     preselect = cmp.PreselectMode.None,
-    completion = { keyword_length = 2 },
     snippet = {
         expand = function(args)
             require("luasnip").lsp_expand(args.body)
@@ -41,6 +40,7 @@ cmp.setup({
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
+        { name = "lazydev", group_index = 0 },
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "buffer" },
@@ -76,9 +76,7 @@ require("mason-lspconfig").setup_handlers({
             capabilities = capabilities,
         })
     end,
-    ["rust_analyzer"] = function()
-        require("rust-tools").setup({})
-    end,
+    ["rust_analyzer"] = function() end,
     ["pylsp"] = function()
         lspconfig.pylsp.setup({
             settings = {
@@ -97,14 +95,18 @@ require("mason-lspconfig").setup_handlers({
 
 -- https://github.com/jay-babu/mason-null-ls.nvim
 -- For more options check https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
-require("mason-null-ls").setup({
-    ensure_installed = { "stylua", "blue", "clang_format" },
-    automatic_installation = false,
-    handlers = {},
-})
 local null_ls = require("null-ls")
+require("mason-null-ls").setup({
+    ensure_installed = { "stylua", "blue", "ruff", "clang_format" },
+    automatic_installation = false,
+    handlers = {
+        ruff = function(_, _)
+            null_ls.register(null_ls.builtins.diagnostics.ruff)
+        end,
+    },
+})
 null_ls.setup({
-    sources = {},
+    sources = { null_ls.builtins.formatting.rustfmt },
     on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
             vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
@@ -118,4 +120,14 @@ null_ls.setup({
             })
         end
     end,
+})
+
+require("crates").setup({
+    lsp = {
+        enabled = true,
+        on_attach = on_attach,
+        actions = true,
+        completion = true,
+        hover = true,
+    },
 })
