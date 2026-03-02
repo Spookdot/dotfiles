@@ -1,5 +1,4 @@
 -- LSP Settings
-local lspconfig = require("lspconfig")
 local on_attach = function(_, _)
     local _ = { noremap = true, silent = true }
     vim.cmd([[
@@ -10,7 +9,8 @@ local on_attach = function(_, _)
        ]])
 end
 
-lspconfig.glslls.setup({})
+-- lspconfig.glslls.setup({})
+-- vim.lsp.config("glslls").setup({})
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -64,14 +64,14 @@ cmp.setup({
     },
 })
 
-require("mason").setup() -- {ui = {width = 200}})
-require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "jsonls" },
-})
+-- require("mason").setup() -- {ui = {width = 200}})
+-- require("mason-lspconfig").setup({
+--     ensure_installed = { "lua_ls", "jsonls" },
+-- })
 vim.lsp.config("rust_analyzer", {
     settings = {
-        ["rust-analyzer"] = {}
-    }
+        ["rust-analyzer"] = {},
+    },
 })
 -- require("mason-lspconfig").setup_handlers({
 --     function(server_name) -- default handler (optional)
@@ -111,20 +111,20 @@ require("mason-null-ls").setup({
     },
 })
 null_ls.setup({
-    sources = { null_ls.builtins.formatting.rustfmt },
-    on_attach = function(client, bufnr)
-        if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = bufnr,
-                callback = function()
-                    -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-                    vim.lsp.buf.format({ bufnr = bufnr })
-                end,
-            })
-        end
-    end,
+    -- sources = { null_ls.builtins.formatting.rustfmt },
+    -- on_attach = function(client, bufnr)
+    --     if client.supports_method("textDocument/formatting") then
+    --         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    --         vim.api.nvim_create_autocmd("BufWritePre", {
+    --             group = augroup,
+    --             buffer = bufnr,
+    --             callback = function()
+    --                 -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+    --                 vim.lsp.buf.format({ bufnr = bufnr })
+    --             end,
+    --         })
+    --     end
+    -- end,
 })
 
 require("crates").setup({

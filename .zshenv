@@ -8,3 +8,4 @@ export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
 export ZDOTDIR="$HOME/.config/zsh"
 . "$HOME/.cargo/env"
+. "/home/spooky/.local/share/bob/env/env.sh"

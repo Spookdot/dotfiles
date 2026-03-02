@@ -4,7 +4,12 @@ vim.opt.termguicolors = true
 
 require("lazy").setup({
     { "williamboman/mason.nvim", opts = {} },
-    "williamboman/mason-lspconfig.nvim",
+    {
+        "williamboman/mason-lspconfig.nvim",
+        opts = {
+            ensure_installed = { "lua_ls", "jsonls" },
+        },
+    },
     "neovim/nvim-lspconfig", -- Language Servers
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
@@ -47,8 +52,13 @@ require("lazy").setup({
         },
     }, -- Linter and Formatter
     { "ThePrimeagen/refactoring.nvim", opts = {} }, -- Code Actions
-    { "j-hui/fidget.nvim", branch = "legacy" }, -- Shows LSP progress
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" }, -- Syntax Highlighting
+    { "j-hui/fidget.nvim", opts = {} }, -- Shows LSP progress
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        lazy = false,
+        -- opts = { install_dir = vim.fn.stdpath("data") .. "/site" },
+    }, -- Syntax Highlighting
     "nvim-tree/nvim-web-devicons", -- Icons
     "MunifTanjim/nui.nvim",
     { "nvim-neo-tree/neo-tree.nvim", branch = "v3.x", opts = { window = { width = 30 } } }, -- File Explorer
@@ -79,14 +89,14 @@ require("lazy").setup({
     }, -- Improved UI
     {
         "mrcjkb/haskell-tools.nvim",
-        version = "^3",
+        version = "^7",
         ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
     },
-    { "mrcjkb/rustaceanvim", version = "^5", lazy = false },
+    { "mrcjkb/rustaceanvim", version = "^8", lazy = false },
     { "nvim-lualine/lualine.nvim", opts = { options = { theme = "molokai" } } }, -- Statusline
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.8",
+        tag = "0.2.1",
         dependencies = { "nvim-lua/plenary.nvim" },
     },
     "nvim-telescope/telescope-ui-select.nvim",
@@ -112,7 +122,6 @@ require("lazy").setup({
         event = { "BufRead Cargo.toml" },
     }, -- Rust Crates Completion
     "lewis6991/gitsigns.nvim", -- Git Stuff
-    { "smoka7/hop.nvim", tag = "2.7.2" }, -- Quick Navigation
     "numToStr/Comment.nvim", -- Comment Plugin
     "nacro90/numb.nvim", -- Peek lines
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }, -- Indent lines
@@ -135,7 +144,7 @@ require("lazy").setup({
     "folke/which-key.nvim",
     {
         "folke/lazydev.nvim",
-        tag = "v1.8.0",
+        tag = "v1.10.0",
         ft = "lua",
         opts = { library = { path = "luvit-meta/library", words = { "vim%.uv" } } },
     },
@@ -172,7 +181,6 @@ require("luasnip.loaders.from_vscode").lazy_load()
 require("which-key").setup()
 require("fidget").setup()
 require("gitsigns").setup()
-require("hop").setup()
 require("Comment").setup()
 require("numb").setup()
 require("dressing").setup()
