@@ -3,66 +3,6 @@ local dapui = require("dapui")
 local port = "265242"
 
 dapui.setup()
--- dap.setup()
--- require("mason-nvim-dap").setup({
---     ensure_installed = { "codelldb" },
---     handlers = {
---         function(config)
---             require("mason-nvim-dap").default_setup(config)
---         end,
---         lldb = function(config)
---             config.adapters = {
---                 type = "executable",
---                 command = "/usr/bin/lldb-vscode",
---                 name = "lldb",
---             }
---             config.configurations = {
---                 name = "Launch file",
---                 type = "lldb",
---                 request = "launch",
---                 program = function()
---                     return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
---                 end,
---                 cwd = "${workspaceFolder}",
---                 stopOnEntry = false,
---                 args = function()
---                     local args_string = vim.fn.input("Arguments: ")
---                     return vim.split(args_string, " +")
---                 end,
---             }
---             config.filetypes = { "c", "cpp", "rust" }
---             require("mason-nvim-dap").default_setup(config)
---         end,
---         codelldb = function(config)
---             config.name = "codelldb"
---             config.adapters = {
---                 type = "server",
---                 port = "${port}",
---                 executable = {
---                     command = vim.fn.exepath("codelldb"),
---                     args = { "--port", "${port}" },
---                 },
---             }
---             config.configurations = {
---                 name = "LLDB: Launch",
---                 type = "codelldb",
---                 request = "launch",
---                 program = function()
---                     return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
---                 end,
---                 cwd = "${workspaceFolder}",
---                 stopOnEntry = false,
---                 args = function()
---                     local args_string = vim.fn.input("Arguments: ")
---                     return vim.split(args_string, " +")
---                 end,
---             }
---             config.filetypes = { "c", "cpp", "rust", "swift", "zig" }
---             require("mason-nvim-dap").default_setup(config)
---         end,
---     },
---     automatic_installation = false,
--- })
 
 -- Adapters
 dap.adapters.codelldb = {
@@ -97,7 +37,39 @@ dap.configurations.cpp = {
     },
 }
 dap.configurations.c = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp
+
+dap.configurations.rust = {
+    {
+        name = "Launch file",
+        type = "lldb",
+        request = "launch",
+        program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+        args = function()
+            local args_string = vim.fn.input("Arguments: ")
+            return vim.split(args_string, " +")
+        end,
+
+        -- For more info on the following part check: https://codeberg.org/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#rust-types
+        initCommands = function()
+          local rustc_sysroot = vim.fn.trim(vim.fn.system 'rustc --print sysroot')
+          assert(
+            vim.v.shell_error == 0,
+            'failed to get rust sysroot using `rustc --print sysroot`: '
+              .. rustc_sysroot
+          )
+          local script_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py'
+          local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
+          return {
+            ([[!command script import '%s']]):format(script_file),
+            ([[command source '%s']]):format(commands_file),
+          }
+        end,
+    },
+}
 
 dap.set_log_level("TRACE")
 
