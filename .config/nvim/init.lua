@@ -3,6 +3,9 @@ require("plugins/bootstrapping")
 vim.opt.termguicolors = true
 
 require("lazy").setup({
+    -- Language Servers
+    "neovim/nvim-lspconfig",
+
     -- Manager for Neovim's dependencies such as LSPs and DAPs
     { "williamboman/mason.nvim", opts = {} },
     {
@@ -10,10 +13,11 @@ require("lazy").setup({
         opts = {
             ensure_installed = { "lua_ls", "jsonls" },
         },
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "williamboman/mason.nvim",
+        }
     },
-
-    -- Language Servers
-    "neovim/nvim-lspconfig",
 
     -- Tools for easier developing of the Neovim Config itself
     {
@@ -64,16 +68,25 @@ require("lazy").setup({
             },
         }
     },
+    {
+        "L3MON4D3/LuaSnip",
+        version = 'v2.*',
+        dependencies = {
+            "rafamadriz/friendly-snippets"
+        },
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end
+    },
 
     -- General dependencies
-    "nvim-neotest/nvim-nio", -- Async Neovim (Required for nvim-dap-ui and neotest)
-    "nvim-lua/plenary.nvim", -- Required by: neotest, none-ls
+    "nvim-lua/plenary.nvim", -- Required by: Not sure this is actually required? Neotest, none-ls
     { "nvim-tree/nvim-web-devicons", opts = {} }, -- Icons, Required by: neotree, bufferline, alpha-nvim
 
     -- DAP for Debugging
     { "jayp0521/mason-nvim-dap.nvim", opts = {} },
     "mfussenegger/nvim-dap",
-    "rcarriga/nvim-dap-ui",
+    { "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio", "mfussenegger/nvim-dap" } },
     { "theHamsta/nvim-dap-virtual-text", opts = {} },
 
     -- Testing
@@ -81,6 +94,7 @@ require("lazy").setup({
         "nvim-neotest/neotest",
         ft = { "python", "rust", "haskell" },
         dependencies = {
+            "nvim-neotest/nvim-nio",
             "antoinemadec/FixCursorHold.nvim",
             "nvim-treesitter/nvim-treesitter",
             "nvim-neotest/neotest-python",
@@ -89,6 +103,7 @@ require("lazy").setup({
     },
 
     -- Linting and Formatting
+    "nvimtools/none-ls.nvim",
     {
         "jayp0521/mason-null-ls.nvim",
         event = { "BufReadPre", "BufNewFile" },
@@ -120,6 +135,7 @@ require("lazy").setup({
         },
         dependencies = {
             "MunifTanjim/nui.nvim",
+            "nvim-tree/nvim-web-devicons"
         }
     },
 
@@ -138,15 +154,20 @@ require("lazy").setup({
         lazy = false,
     },
 
+    { "ThePrimeagen/refactoring.nvim", opts = {} }, -- Code Actions
+    { "j-hui/fidget.nvim", opts = {} }, -- Shows LSP progress
+
+    -- Startup Dashboard
+    {
+        "goolord/alpha-nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" }
+    },
+
     -- Cool way to show notifications
     -- if you ever miss one, use `:Telescope notify` to scroll through them
     "rcarriga/nvim-notify",
 
-    { "ThePrimeagen/refactoring.nvim", opts = {} }, -- Code Actions
-    { "j-hui/fidget.nvim", opts = {} }, -- Shows LSP progress
-    "goolord/alpha-nvim", -- Startup Dashboard
-
-    "stevearc/dressing.nvim", -- Consider replacting with: https://github.com/folke/snacks.nvim
+    -- Improved UI
     {
         "folke/noice.nvim",
         event = "VeryLazy",
@@ -156,26 +177,61 @@ require("lazy").setup({
                 override = {
                     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                     ["vim.lsp.util.stylize_markdown"] = true,
-                    ["cmp.entry.get_documentation"] = true,
                 },
             },
         },
         dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-    }, -- Improved UI
+    },
+
+    -- Haskell Tools
     {
         "mrcjkb/haskell-tools.nvim",
-        version = "^7",
-        ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
-    }, -- Haskell Tools
-    { "mrcjkb/rustaceanvim", version = "^8", lazy = false }, -- Rust tools
-    { "nvim-lualine/lualine.nvim", opts = { options = { theme = "molokai" } } }, -- Statusline
+        version = "^10",
+        lazy = false,
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+        },
+    },
+
+    -- Rust tools
+    { "mrcjkb/rustaceanvim", version = "^9", lazy = false },
+    {
+        "Saecki/crates.nvim",
+        tag = "stable",
+        event = { "BufRead Cargo.toml" },
+    },
+
+    -- Statusline (The one at the bottom)
+    {
+        "nvim-lualine/lualine.nvim",
+        --- @module "lualine.config"
+        opts = {
+            options = { theme = "molokai" }
+        }
+    },
+
+    -- Fuzzy finder to browse files and help and other
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.2.1",
-        dependencies = { "nvim-lua/plenary.nvim" },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
+        },
     },
-    "nvim-telescope/telescope-ui-select.nvim",
-    "benfowler/telescope-luasnip.nvim", -- Fancy UI thing
+    "nvim-telescope/telescope-ui-select.nvim", -- Removing this breaks shit
+    "benfowler/telescope-luasnip.nvim", -- this too
+
+    -- Clipboard history
+    -- Remember this for clipboard usage:
+    -- https://stackoverflow.com/questions/1497958/how-do-i-use-vim-registers
+    {
+        "AckslD/nvim-neoclip.lua",
+        opts = {},
+        dependencies = { "nvim-telescope/telescope.nvim" },
+    },
+
+    -- Cheatsheet
     {
         "doctorfree/cheatsheet.nvim",
         event = "VeryLazy",
@@ -184,24 +240,42 @@ require("lazy").setup({
             "nvim-lua/popup.nvim",
             "nvim-lua/plenary.nvim",
         },
-    }, -- Cheatsheet
+    },
+
+    -- fancy folding
     {
-        "AckslD/nvim-neoclip.lua",
-        opts = {},
-        dependencies = { "nvim-telescope/telescope.nvim" },
-    }, -- Clipboard history
-    { "kevinhwang91/nvim-ufo", dependencies = { "kevinhwang91/promise-async" } }, -- fancy folding
+        "kevinhwang91/nvim-ufo",
+        dependencies = {
+            "kevinhwang91/promise-async"
+        }
+    },
+
+    -- Git Stuff
     {
-        "Saecki/crates.nvim",
-        tag = "stable",
-        event = { "BufRead Cargo.toml" },
-    }, -- Rust Crates Completion
-    { "lewis6991/gitsigns.nvim", opts = {} }, -- Git Stuff
-    { "numToStr/Comment.nvim", opts = {} }, -- Comment Plugin
-    "nacro90/numb.nvim", -- Peek lines
+        "lewis6991/gitsigns.nvim",
+        opts = {}
+    },
+
+    -- Comment Plugin
+    -- Use Visual mode with
+    -- gc - Linewise comment
+    -- gb - Blockwise comment
+    {
+        "numToStr/Comment.nvim", opts = {}
+    },
+
+    -- Session Manager
+    {
+        "Shatur/neovim-session-manager",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        }
+    },
+
+    -- General Visual stuff
+    "nacro90/numb.nvim", -- Preview a line before you jump there with :120 or :23
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }, -- Indent lines
-    "Shatur/neovim-session-manager", -- Session Manager
-    "rafamadriz/friendly-snippets", -- Some Snippets
+
     { "folke/trouble.nvim", opts = {}, cmd = "Trouble" }, -- List all Diagnostics
     {
         "iamcco/markdown-preview.nvim",
@@ -234,9 +308,9 @@ require("lazy").setup({
         opts = require("plugins.themery"),
     },
     { "folke/neoconf.nvim", opts = {} },
+    "stevearc/dressing.nvim", -- Consider replacting with: https://github.com/folke/snacks.nvim
 })
 
-require("luasnip.loaders.from_vscode").lazy_load()
 local telescope = require("telescope")
 telescope.setup({})
 telescope.load_extension("ui-select")
