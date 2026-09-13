@@ -315,7 +315,7 @@ require("lazy").setup({
     "folke/tokyonight.nvim",
     {
         "zaldih/themery.nvim",
-        cmd = { "Themery" },
+        lazy = false,
         opts = require("plugins.themery"),
     },
     "stevearc/dressing.nvim", -- Consider replacting with: https://github.com/folke/snacks.nvim

@@ -21,5 +21,6 @@ return {
         "tokyonight", "tokyonight-storm", "tokyonight-night", "tokyonight-day",
         "tokyonight-moon", "material-oceanic", "material-deep-ocean",
         "material-palenight", "material-lighter", "material-darker"
-    }
+    },
+    livePreview = true
 }
