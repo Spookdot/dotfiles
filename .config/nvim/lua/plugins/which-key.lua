@@ -6,6 +6,8 @@ local builtin = require("telescope.builtin")
 local neotest = require("neotest")
 local gitsigns = require("gitsigns")
 local gitactions = require("gitsigns.actions")
+local refac = require("refactoring")
+local refacdebug = require("refactoring.debug")
 wk.add({
     { "<leader><Space>", "<cmd>Neotree<cr>", desc = "Open Neotree" },
     -- Telescope Section
@@ -134,6 +136,60 @@ wk.add({
             gitactions.diffthis(commit)
         end,
         desc = "Show diff to specific commit",
+    },
+    -- Refactoring
+    { "<leader>r", group = "refactoring" },
+    { "<leader>re", refac.extract_func, desc = "Extract Function", mode = "n" },
+    { "<leader>rv", refac.extract_var, desc = "Extract Variable", mode = "n" },
+    { "<leader>rI", refac.inline_func, desc = "Inline Function", mode = "n" },
+    { "<leader>ri", refac.inline_var, desc = "Inline Variable", mode = "n" },
+    {
+        "<leader>rpv",
+        function()
+            refacdebug.print_var({ output_location = "below" })
+        end,
+        desc = "Debug print Variable below",
+        mode = "n"
+    },
+    {
+        "<leader>rpV",
+        function()
+            refacdebug.print_var({ output_location = "above" })
+        end,
+        desc = "Debug print Variable above",
+        mode = "n"
+    },
+    {
+        "<leader>rpe",
+        function()
+            refacdebug.print_exp({ output_location = "below" })
+        end,
+        desc = "Debug print Expression below",
+        mode = "n"
+    },
+    {
+        "<leader>rpE",
+        function()
+            refacdebug.print_exp({ output_location = "above" })
+        end,
+        desc = "Debug print Expression above",
+        mode = "n"
+    },
+    {
+        "<leader>rpl",
+        function()
+            refacdebug.print_loc({ output_location = "below" })
+        end,
+        desc = "Debug print Location below",
+        mode = "n"
+    },
+    {
+        "<leader>rpL",
+        function()
+            refacdebug.print_loc({ output_location = "above" })
+        end,
+        desc = "Debug print Location above",
+        mode = "n"
     },
 })
 -- For more info check: https://github.com/folke/which-key.nvim#%EF%B8%8F-mappings
