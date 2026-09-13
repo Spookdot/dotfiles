@@ -272,11 +272,20 @@ require("lazy").setup({
         }
     },
 
+    -- Diagnostics and other lists
+    {
+        "folke/trouble.nvim",
+        opts = {},
+        cmd = "Trouble",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons"
+        }
+    },
+
     -- General Visual stuff
     "nacro90/numb.nvim", -- Preview a line before you jump there with :120 or :23
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }, -- Indent lines
 
-    { "folke/trouble.nvim", opts = {}, cmd = "Trouble" }, -- List all Diagnostics
     {
         "iamcco/markdown-preview.nvim",
         cmd = {

@@ -139,17 +139,16 @@ wk.add({
     },
     -- Refactoring
     { "<leader>r", group = "refactoring" },
-    { "<leader>re", refac.extract_func, desc = "Extract Function", mode = "n" },
-    { "<leader>rv", refac.extract_var, desc = "Extract Variable", mode = "n" },
-    { "<leader>rI", refac.inline_func, desc = "Inline Function", mode = "n" },
-    { "<leader>ri", refac.inline_var, desc = "Inline Variable", mode = "n" },
+    { "<leader>re", refac.extract_func, desc = "Extract Function" },
+    { "<leader>rv", refac.extract_var, desc = "Extract Variable" },
+    { "<leader>rI", refac.inline_func, desc = "Inline Function" },
+    { "<leader>ri", refac.inline_var, desc = "Inline Variable" },
     {
         "<leader>rpv",
         function()
             refacdebug.print_var({ output_location = "below" })
         end,
         desc = "Debug print Variable below",
-        mode = "n"
     },
     {
         "<leader>rpV",
@@ -157,7 +156,6 @@ wk.add({
             refacdebug.print_var({ output_location = "above" })
         end,
         desc = "Debug print Variable above",
-        mode = "n"
     },
     {
         "<leader>rpe",
@@ -165,7 +163,6 @@ wk.add({
             refacdebug.print_exp({ output_location = "below" })
         end,
         desc = "Debug print Expression below",
-        mode = "n"
     },
     {
         "<leader>rpE",
@@ -173,7 +170,6 @@ wk.add({
             refacdebug.print_exp({ output_location = "above" })
         end,
         desc = "Debug print Expression above",
-        mode = "n"
     },
     {
         "<leader>rpl",
@@ -181,7 +177,6 @@ wk.add({
             refacdebug.print_loc({ output_location = "below" })
         end,
         desc = "Debug print Location below",
-        mode = "n"
     },
     {
         "<leader>rpL",
@@ -189,7 +184,18 @@ wk.add({
             refacdebug.print_loc({ output_location = "above" })
         end,
         desc = "Debug print Location above",
-        mode = "n"
+    },
+    -- Trouble section
+    { "<leader>x", group = "Trouble diagnostics" },
+    {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+    },
+    {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.bug=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
     },
 })
 -- For more info check: https://github.com/folke/which-key.nvim#%EF%B8%8F-mappings
