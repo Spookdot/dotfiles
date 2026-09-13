@@ -96,14 +96,14 @@ wk.add({
     { "<leader>zM", ufo.closeAllFolds, desc = "Close all Folds" },
     -- GitSigns
     { "<leader>g", group = "gitsigns" },
-    { "<leader>gs", gitsigns.stage_hunk, desc = "Stage Hunk", mode = "n" },
+    { "<leader>gs", gitsigns.stage_hunk, desc = "Stage or unstage Hunk", mode = "n" },
     { "<leader>gr", gitsigns.reset_hunk, desc = "Reset Hunk", mode = "n" },
     {
         "<leader>gs",
         function()
             gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
         end,
-        desc = "Stage Hunk",
+        desc = "Stage unstage Hunk",
         mode = "v",
     },
     {
@@ -114,10 +114,10 @@ wk.add({
         desc = "Reset Hunk",
         mode = "v",
     },
-    { "<leader>gS", gitsigns.stage_buffer, desc = "Stage buffer" },
-    { "<leader>gu", gitsigns.undo_stage_hunk, desc = "Undo Stage hunk" },
+    { "<leader>gS", gitsigns.stage_buffer, desc = "Stage or unstage buffer" },
     { "<leader>gR", gitsigns.reset_buffer, desc = "Reset buffer" },
-    { "<leader>gp", gitsigns.previw_hunk, desc = "Preview buffer" },
+    { "<leader>gp", gitsigns.previw_hunk, desc = "Preview hunk" },
+    { "<leader>gx", gitsigns.preview_hunk_inline, desc = "Preview hunk inline" },
     { "<leader>gb", gitactions.toggle_current_line_blame, desc = "Toggle current line blame" },
     {
         "<leader>gB",
@@ -135,7 +135,6 @@ wk.add({
         end,
         desc = "Show diff to specific commit",
     },
-    { "<leader>gx", gitactions.toggle_deleted, desc = "Toggle deleted" },
 })
 -- For more info check: https://github.com/folke/which-key.nvim#%EF%B8%8F-mappings
 
