@@ -68,6 +68,7 @@ require("lazy").setup({
     -- General dependencies
     "nvim-neotest/nvim-nio", -- Async Neovim (Required for nvim-dap-ui and neotest)
     "nvim-lua/plenary.nvim", -- Required by: neotest, none-ls
+    { "nvim-tree/nvim-web-devicons", opts = {} }, -- Icons, Required by: neotree
 
     -- DAP for Debugging
     { "jayp0521/mason-nvim-dap.nvim", opts = {} },
@@ -104,17 +105,31 @@ require("lazy").setup({
         opts = {}
     },
 
+    -- File Explorer 
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        --- @module 'neo-tree'
+        --- @type neotree.Config
+        opts = {
+            window = { width = 30 },
+            filesystem = {
+                -- Use OS level file watcher instead of autocmd
+                use_libuv_file_watcher = true
+            }
+        },
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        }
+    },
+
     { "ThePrimeagen/refactoring.nvim", opts = {} }, -- Code Actions
     { "j-hui/fidget.nvim", opts = {} }, -- Shows LSP progress
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         lazy = false,
-        -- opts = { install_dir = vim.fn.stdpath("data") .. "/site" },
     }, -- Syntax Highlighting
-    { "nvim-tree/nvim-web-devicons", opts = {} }, -- Icons
-    "MunifTanjim/nui.nvim",
-    { "nvim-neo-tree/neo-tree.nvim", branch = "v3.x", opts = { window = { width = 30 } } }, -- File Explorer
     "onsails/lspkind.nvim", -- Completion Icons
     {
         "akinsho/bufferline.nvim",
