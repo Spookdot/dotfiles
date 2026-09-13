@@ -222,6 +222,7 @@ telescope.load_extension("luasnip")
 telescope.load_extension("neoclip")
 
 require("plugins/nvim-lspconfig")
+require("plugins/null-ls")
 require("plugins/ufo")
 require("plugins/nvim-dap")
 require("plugins/neotest")
