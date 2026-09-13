@@ -68,7 +68,7 @@ require("lazy").setup({
     -- General dependencies
     "nvim-neotest/nvim-nio", -- Async Neovim (Required for nvim-dap-ui and neotest)
     "nvim-lua/plenary.nvim", -- Required by: neotest, none-ls
-    { "nvim-tree/nvim-web-devicons", opts = {} }, -- Icons, Required by: neotree
+    { "nvim-tree/nvim-web-devicons", opts = {} }, -- Icons, Required by: neotree, bufferline, alpha-nvim
 
     -- DAP for Debugging
     { "jayp0521/mason-nvim-dap.nvim", opts = {} },
@@ -123,21 +123,29 @@ require("lazy").setup({
         }
     },
 
-    { "ThePrimeagen/refactoring.nvim", opts = {} }, -- Code Actions
-    { "j-hui/fidget.nvim", opts = {} }, -- Shows LSP progress
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        lazy = false,
-    }, -- Syntax Highlighting
+    -- Line that shows the buffers at the top
     {
         "akinsho/bufferline.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         version = "*",
         opts = {},
-    }, -- tabline
+    },
+
+    -- Syntax Highlighting
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        lazy = false,
+    },
+
+    -- Cool way to show notifications
+    -- if you ever miss one, use `:Telescope notify` to scroll through them
+    "rcarriga/nvim-notify",
+
+    { "ThePrimeagen/refactoring.nvim", opts = {} }, -- Code Actions
+    { "j-hui/fidget.nvim", opts = {} }, -- Shows LSP progress
     "goolord/alpha-nvim", -- Startup Dashboard
-    "rcarriga/nvim-notify", -- Cool way to show notifications
+
     "stevearc/dressing.nvim", -- Consider replacting with: https://github.com/folke/snacks.nvim
     {
         "folke/noice.nvim",
@@ -240,6 +248,7 @@ require("plugins/null-ls")
 require("plugins/ufo")
 require("plugins/nvim-dap")
 require("plugins/neotest")
+require("plugins/alpha")
 require("plugins/which-key")
 
 -- ufo folding
@@ -252,21 +261,6 @@ vim.o.foldenable = true
 require("session_manager").setup({
     autoload_mode = require("session_manager.config").AutoloadMode.Disabled,
 })
-
--- Alpha
-local dashboard = require("alpha.themes.dashboard")
-dashboard.section.header.val = {
-    [[          ▀████▀▄▄              ▄█ ]],
-    [[            █▀    ▀▀▄▄▄▄▄    ▄▄▀▀█ ]],
-    [[    ▄        █          ▀▀▀▀▄  ▄▀  ]],
-    [[   ▄▀ ▀▄      ▀▄              ▀▄▀  ]],
-    [[  ▄▀    █     █▀   ▄█▀▄      ▄█    ]],
-    [[  ▀▄     ▀▄  █     ▀██▀     ██▄█   ]],
-    [[   ▀▄    ▄▀ █   ▄██▄   ▄  ▄  ▀▀ █  ]],
-    [[    █  ▄▀  █    ▀██▀    ▀▀ ▀▀  ▄▀  ]],
-    [[   █   █  █      ▄▄           ▄▀   ]],
-}
-require("alpha").setup(dashboard.config)
 
 -- My settings
 local dap = require("dap")
