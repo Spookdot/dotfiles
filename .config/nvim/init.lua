@@ -282,10 +282,7 @@ require("lazy").setup({
         }
     },
 
-    -- General Visual stuff
-    "nacro90/numb.nvim", -- Preview a line before you jump there with :120 or :23
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }, -- Indent lines
-
+    -- Markdown Preview
     {
         "iamcco/markdown-preview.nvim",
         cmd = {
@@ -298,7 +295,12 @@ require("lazy").setup({
             vim.g.mkdp_filetypes = { "markdown" }
         end,
         ft = { "markdown" },
-    },  -- Markdown Preview
+    },
+
+    -- General Visual stuff
+    "nacro90/numb.nvim", -- Preview a line before you jump there with :120 or :23
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }, -- Indent lines
+
     "xiyaowong/transparent.nvim", -- Optional Transparency
     { "maxmx03/fluoromachine.nvim", opts = { theme = "retrowave", glow = true } },
     "EdenEast/nightfox.nvim", -- Theme
@@ -316,7 +318,6 @@ require("lazy").setup({
         cmd = { "Themery" },
         opts = require("plugins.themery"),
     },
-    { "folke/neoconf.nvim", opts = {} },
     "stevearc/dressing.nvim", -- Consider replacting with: https://github.com/folke/snacks.nvim
 })
 
