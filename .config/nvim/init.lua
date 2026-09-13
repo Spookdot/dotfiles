@@ -130,7 +130,6 @@ require("lazy").setup({
         build = ":TSUpdate",
         lazy = false,
     }, -- Syntax Highlighting
-    "onsails/lspkind.nvim", -- Completion Icons
     {
         "akinsho/bufferline.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
