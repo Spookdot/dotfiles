@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/spooky/.config/zsh/completions:"* ]]; then export FPATH="/home/spooky/.config/zsh/completions:$FPATH"; fi
 
 ### Bootstrap Antidote
 if [[ ! -f ${ZDOTDIR:-~}/.antidote/antidote.zsh ]]; then
@@ -52,11 +54,11 @@ f() {
 }
 
 # Adjust SESS_PROJECT_ROOT for the folders I usually store projects in
-export SESS_PROJECT_ROOT="$HOME/repos/"
-for dir in $HOME/projects/*/
-do
-    export SESS_PROJECT_ROOT="${dir}:$SESS_PROJECT_ROOT"
-done
+# export SESS_PROJECT_ROOT="$HOME/repos/"
+# for dir in $HOME/projects/*/
+# do
+#     export SESS_PROJECT_ROOT="${dir}:$SESS_PROJECT_ROOT"
+# done
 
 # Additions made by other programs
 # pnpm
@@ -68,3 +70,4 @@ esac
 # pnpm end
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 fpath+=~/.zfunc
+. "/home/spooky/.deno/env"

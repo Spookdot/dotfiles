@@ -23,4 +23,7 @@ require("crates").setup({
         completion = true,
         hover = true,
     },
+    null_ls = {
+        enabled = true
+    }
 })
