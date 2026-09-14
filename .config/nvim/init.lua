@@ -99,7 +99,9 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter",
             "nvim-neotest/neotest-python",
             "mrcjkb/neotest-haskell",
+            "mrcjkb/rustaceanvim",
         },
+        config = require("plugins/neotest"),
     },
 
     -- Linting and Formatting
@@ -160,7 +162,8 @@ require("lazy").setup({
     -- Startup Dashboard
     {
         "goolord/alpha-nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" }
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = require("plugins/alpha")
     },
 
     -- Cool way to show notifications
@@ -331,8 +334,6 @@ require("plugins/nvim-lspconfig")
 require("plugins/null-ls")
 require("plugins/ufo")
 require("plugins/nvim-dap")
-require("plugins/neotest")
-require("plugins/alpha")
 require("plugins/which-key")
 
 -- ufo folding

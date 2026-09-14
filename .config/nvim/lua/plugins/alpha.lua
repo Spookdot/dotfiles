@@ -1,13 +1,15 @@
-local dashboard = require("alpha.themes.dashboard")
-dashboard.section.header.val = {
-    [[          ▀████▀▄▄              ▄█ ]],
-    [[            █▀    ▀▀▄▄▄▄▄    ▄▄▀▀█ ]],
-    [[    ▄        █          ▀▀▀▀▄  ▄▀  ]],
-    [[   ▄▀ ▀▄      ▀▄              ▀▄▀  ]],
-    [[  ▄▀    █     █▀   ▄█▀▄      ▄█    ]],
-    [[  ▀▄     ▀▄  █     ▀██▀     ██▄█   ]],
-    [[   ▀▄    ▄▀ █   ▄██▄   ▄  ▄  ▀▀ █  ]],
-    [[    █  ▄▀  █    ▀██▀    ▀▀ ▀▀  ▄▀  ]],
-    [[   █   █  █      ▄▄           ▄▀   ]],
-}
-require("alpha").setup(dashboard.config)
+return function()
+    local dashboard = require("alpha.themes.dashboard")
+    dashboard.section.header.val = {
+        [[          ▀████▀▄▄              ▄█ ]],
+        [[            █▀    ▀▀▄▄▄▄▄    ▄▄▀▀█ ]],
+        [[    ▄        █          ▀▀▀▀▄  ▄▀  ]],
+        [[   ▄▀ ▀▄      ▀▄              ▀▄▀  ]],
+        [[  ▄▀    █     █▀   ▄█▀▄      ▄█    ]],
+        [[  ▀▄     ▀▄  █     ▀██▀     ██▄█   ]],
+        [[   ▀▄    ▄▀ █   ▄██▄   ▄  ▄  ▀▀ █  ]],
+        [[    █  ▄▀  █    ▀██▀    ▀▀ ▀▀  ▄▀  ]],
+        [[   █   █  █      ▄▄           ▄▀   ]],
+    }
+    require("alpha").setup(dashboard.config)
+end
