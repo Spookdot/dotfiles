@@ -1,4 +1,4 @@
--- Let nvim lsp act as LSP cliient
+-- Let nvim lsp act as LSP client for the folds
 -- Tell the server the capability of foldingRange
 -- Neovim hasn't added foldingRange to default capabilities, users must add it manually
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -44,7 +44,9 @@ end
 
 require("ufo").setup({
     open_fold_hl_timeout = 150,
-    -- close_fold_kinds_for_ft = { "imports", "comment" }, -- This seems to break something for some reason
+    close_fold_kinds_for_ft = {
+        default = {"imports", "comment"}
+    }, -- This seems to break something for some reason
 
     preview = { win_config = { winhighlight = "Normal:Folded", winblend = 0 } },
     fold_virt_text_handler = handler,
