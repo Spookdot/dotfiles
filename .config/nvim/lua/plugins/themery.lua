@@ -1,5 +1,5 @@
 return {
-    themeConfigFile = "~/.config/nvim/init.lua",
+    -- themeConfigFile = "~/.config/nvim/init.lua",
     themes = {
         {
             name = "fluoromachine",

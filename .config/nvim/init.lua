@@ -16,7 +16,7 @@ require("lazy").setup({
         dependencies = {
             "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
-        }
+        },
     },
 
     -- Tools for easier developing of the Neovim Config itself
@@ -26,67 +26,67 @@ require("lazy").setup({
         ft = "lua",
         opts = { library = { path = "luvit-meta/library", words = { "vim%.uv" } } },
     },
-    { "Bilal2453/luvit-meta", lazy = true },
+    { "Bilal2453/luvit-meta",    lazy = true },
 
     -- Completion engine
     -- View Keymap here: https://cmp.saghen.dev/configuration/keymap.html#presets
     {
         "saghen/blink.cmp",
-        dependencies = { "L3MON4D3/LuaSnip", version = 'v2.*' },
+        dependencies = { "L3MON4D3/LuaSnip", version = "v2.*" },
         version = "1.*",
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
-            keymap = { preset = 'enter' },
+            keymap = { preset = "enter" },
             completion = {
                 list = {
                     selection = {
-                        preselect = false
-                    }
+                        preselect = false,
+                    },
                 },
                 documentation = {
                     auto_show = true,
                     auto_show_delay_ms = 2000,
                 },
                 ghost_text = {
-                    enabled = true
-                }
+                    enabled = true,
+                },
             },
             snippets = { preset = "luasnip" },
             sources = {
                 default = { "lsp", "path", "snippets", "buffer" },
                 per_filetype = {
-                    lua = { inherit_defaults = true, "lazydev" }
+                    lua = { inherit_defaults = true, "lazydev" },
                 },
                 providers = {
                     lazydev = {
                         name = "LazyDev",
                         module = "lazydev.integrations.blink",
                         score_offset = 100,
-                    }
-                }
+                    },
+                },
             },
-        }
+        },
     },
     {
         "L3MON4D3/LuaSnip",
-        version = 'v2.*',
+        version = "v2.*",
         dependencies = {
-            "rafamadriz/friendly-snippets"
+            "rafamadriz/friendly-snippets",
         },
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
-        end
+        end,
     },
 
     -- General dependencies
-    "nvim-lua/plenary.nvim", -- Required by: Not sure this is actually required? Neotest, none-ls
-    { "nvim-tree/nvim-web-devicons", opts = {} }, -- Icons, Required by: neotree, bufferline, alpha-nvim
+    "nvim-lua/plenary.nvim",                      -- Required by: Not sure this is actually required? Neotest, none-ls
+    { "nvim-tree/nvim-web-devicons",  opts = {} }, -- Icons, Required by: neotree, bufferline, alpha-nvim
 
     -- DAP for Debugging
     { "jayp0521/mason-nvim-dap.nvim", opts = {} },
     "mfussenegger/nvim-dap",
-    { "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio", "mfussenegger/nvim-dap" } },
+    { "rcarriga/nvim-dap-ui",            dependencies = { "nvim-neotest/nvim-nio", "mfussenegger/nvim-dap" } },
     { "theHamsta/nvim-dap-virtual-text", opts = {} },
 
     -- Testing
@@ -120,10 +120,10 @@ require("lazy").setup({
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
-        opts = {}
+        opts = {},
     },
 
-    -- File Explorer 
+    -- File Explorer
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
@@ -133,13 +133,13 @@ require("lazy").setup({
             window = { width = 30 },
             filesystem = {
                 -- Use OS level file watcher instead of autocmd
-                use_libuv_file_watcher = true
-            }
+                use_libuv_file_watcher = true,
+            },
         },
         dependencies = {
             "MunifTanjim/nui.nvim",
-            "nvim-tree/nvim-web-devicons"
-        }
+            "nvim-tree/nvim-web-devicons",
+        },
     },
 
     -- Line that shows the buffers at the top
@@ -158,13 +158,13 @@ require("lazy").setup({
     },
 
     { "ThePrimeagen/refactoring.nvim", opts = {} }, -- Code Actions
-    { "j-hui/fidget.nvim", opts = {} }, -- Shows LSP progress
+    { "j-hui/fidget.nvim",             opts = {} }, -- Shows LSP progress
 
     -- Startup Dashboard
     {
         "goolord/alpha-nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = require("plugins/alpha")
+        config = require("plugins/alpha"),
     },
 
     -- Cool way to show notifications
@@ -198,7 +198,7 @@ require("lazy").setup({
     },
 
     -- Rust tools
-    { "mrcjkb/rustaceanvim", version = "^9", lazy = false },
+    { "mrcjkb/rustaceanvim",                 version = "^9", lazy = false },
     {
         "Saecki/crates.nvim",
         tag = "stable",
@@ -210,8 +210,8 @@ require("lazy").setup({
         "nvim-lualine/lualine.nvim",
         --- @module "lualine.config"
         opts = {
-            options = { theme = "molokai" }
-        }
+            options = { theme = "molokai" },
+        },
     },
 
     -- Fuzzy finder to browse files and help and other
@@ -220,11 +220,11 @@ require("lazy").setup({
         tag = "0.2.1",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
+            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         },
     },
     "nvim-telescope/telescope-ui-select.nvim", -- Removing this breaks shit
-    "benfowler/telescope-luasnip.nvim", -- this too
+    "benfowler/telescope-luasnip.nvim",        -- this too
 
     -- Clipboard history
     -- Remember this for clipboard usage:
@@ -250,14 +250,14 @@ require("lazy").setup({
     {
         "kevinhwang91/nvim-ufo",
         dependencies = {
-            "kevinhwang91/promise-async"
-        }
+            "kevinhwang91/promise-async",
+        },
     },
 
     -- Git Stuff
     {
         "lewis6991/gitsigns.nvim",
-        opts = {}
+        opts = {},
     },
 
     -- Comment Plugin
@@ -265,7 +265,8 @@ require("lazy").setup({
     -- gc - Linewise comment
     -- gb - Blockwise comment
     {
-        "numToStr/Comment.nvim", opts = {}
+        "numToStr/Comment.nvim",
+        opts = {},
     },
 
     -- Session Manager
@@ -273,7 +274,7 @@ require("lazy").setup({
         "Shatur/neovim-session-manager",
         dependencies = {
             "nvim-lua/plenary.nvim",
-        }
+        },
     },
 
     -- Diagnostics and other lists
@@ -282,8 +283,8 @@ require("lazy").setup({
         opts = {},
         cmd = "Trouble",
         dependencies = {
-            "nvim-tree/nvim-web-devicons"
-        }
+            "nvim-tree/nvim-web-devicons",
+        },
     },
 
     -- Markdown Preview
@@ -302,12 +303,13 @@ require("lazy").setup({
     },
 
     -- General Visual stuff
-    "nacro90/numb.nvim", -- Preview a line before you jump there with :120 or :23
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }, -- Indent lines
+    -- Preview a line before you jump there with :120 or :23
+    "nacro90/numb.nvim",
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl",   opts = {} }, -- Indent lines
 
-    "xiyaowong/transparent.nvim", -- Optional Transparency
+    "xiyaowong/transparent.nvim",                                       -- Optional Transparency
     { "maxmx03/fluoromachine.nvim", opts = { theme = "retrowave", glow = true } },
-    "EdenEast/nightfox.nvim", -- Theme
+    "EdenEast/nightfox.nvim",                                           -- Theme
     "tiagovla/tokyodark.nvim",
     "shaunsingh/moonlight.nvim",
     "catppuccin/nvim",
@@ -338,7 +340,7 @@ require("plugins/which-key")
 
 -- ufo folding
 vim.o.foldcolumn = "3" -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 vim.opt.fillchars = "fold: "
@@ -392,6 +394,7 @@ make_command("NeotestDebugCurrentFile", function()
     neotest.run.run({ vim.fn.expand("%"), strategy = "dap", suite = false })
 end, {})
 make_command("NeotestStop", neotest.run.stop, {})
+make_command("Format", function() vim.lsp.buf.format() end, {})
 
 -- Filetype specific settings
 vim.api.nvim_create_autocmd("FileType", {
