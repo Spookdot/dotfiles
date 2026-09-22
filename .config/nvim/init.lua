@@ -302,6 +302,14 @@ require("lazy").setup({
         ft = { "markdown" },
     },
 
+    -- Typst Preview
+    {
+        'chomosuke/typst-preview.nvim',
+        ft = "typst",
+        version = "1.*",
+        opts = {},
+    },
+
     -- General Visual stuff
     -- Preview a line before you jump there with :120 or :23
     "nacro90/numb.nvim",
