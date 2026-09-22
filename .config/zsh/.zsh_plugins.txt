@@ -39,6 +39,8 @@ ohmyzsh/ohmyzsh path:plugins/ripgrep kind:fpath
 ohmyzsh/ohmyzsh path:plugins/rust kind:fpath
 
 # plugins beyond ohmyzsh
+# Better Vi mode
+jeffreytse/zsh-vi-mode
 # Expands abbreviations when space is pressed
 olets/zsh-abbr kind:defer
 # Replaces zsh's autocomplete with fzf
