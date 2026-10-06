@@ -1,3 +1,9 @@
+# Compatibility with OhMyZsh
+getantidote/use-omz
+
+# Optional but recommended for OhMyZsh
+ohmyzsh/ohmyzsh path:lib
+
 # OhMyZsh Plugins
 ohmyzsh/ohmyzsh path:plugins/aliases
 ohmyzsh/ohmyzsh path:plugins/asdf

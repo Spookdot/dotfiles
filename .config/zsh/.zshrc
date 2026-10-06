@@ -70,4 +70,3 @@ esac
 # pnpm end
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 fpath+=~/.zfunc
-. "/home/spooky/.deno/env"
